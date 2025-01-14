@@ -78,26 +78,26 @@ export default (function useAppRouterArchitecture() {
       { Component, getStaticProps, metadata },
     ] of Object.entries<PageProps>(routesConfig)) {
       app.get(convertPath(path), async (req, res) => {
-        try {
-          if (navigator.onLine) {
-            fetch('/cache.json', {
-              cache: 'no-cache',
+        if (navigator.onLine) {
+          fetch('/cache.json', {
+            cache: 'no-cache',
+          })
+            .then((response) => response.json())
+            .then((cache) => {
+              if (cache.version !== version) {
+                console.log(
+                  'Cache version mismatch. Reinstalling service worker.',
+                );
+
+                self.registration.unregister();
+              }
             })
-              .then((response) => response.json())
-              .then((cache) => {
-                if (cache.version !== version) {
-                  console.log(
-                    'Cache version mismatch. Reinstalling service worker.',
-                  );
+            .catch((error) => {
+              console.log(error);
+            });
+        }
 
-                  self.registration.unregister();
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
-
+        try {
           const initialProps = await getStaticProps(req.params);
 
           const renderResult = renderToString(

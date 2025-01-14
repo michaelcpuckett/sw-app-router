@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     </BrowserRouter>
   );
 
-  hydrateRoot(rootElement, createElement(PageComponent as any));
+  hydrateRoot(rootElement, createElement(PageComponent));
 });
 
 declare global {
