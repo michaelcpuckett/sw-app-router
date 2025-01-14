@@ -36,6 +36,8 @@ body {
   white-space: nowrap;
 }
 
+header,
+nav,
 main {
   padding-left: 12px;
   padding-right: 12px;
@@ -84,4 +86,9 @@ main {
 
 .button[disabled] {
   cursor: not-allowed;
+}
+
+textarea {
+  width: 100%;
+  min-height: 5lh;
 }

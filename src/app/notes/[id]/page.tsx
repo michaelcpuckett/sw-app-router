@@ -63,6 +63,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
           Back
         </a>
       </nav>
+      <br />
       <main>
         <textarea
           defaultValue={note.text}

@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
     "build": "parcel build",
+    "watch": "parcel watch",
     "serve": "http-server dist -p 8080",
     "app-router": "ts-node ./.app-router/prepare.ts"
   },
@@ -47,6 +48,7 @@
     "http-server": "^14.1.1",
     "parcel": "^2.10.3",
     "prettier": "^3.1.0",
+    "process": "^0.11.10",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"

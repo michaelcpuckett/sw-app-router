@@ -98,8 +98,8 @@ export const metadata = {
 ### `getStaticProps`
 
 `getStaticProps` is a function used to fetch data at render time. It allows you
-to fetch data from an API, database, or file system and pass it as props to the
-page component. The path params are passed to this function. You can define
+to fetch data from an API or database and pass it as props to the page
+component. The path params are passed to this function. You can define
 getStaticProps as follows:
 
 ```ts
@@ -111,6 +111,12 @@ export async function getStaticProps(params: Params) {
   };
 }
 ```
+
+## Debugging
+
+Use `npm run serve` and `npm run watch` and in the Web Inspector, under the
+Application tab, under Service Workers, select the checkbox for "Update on
+reload".
 
 ## License
 
