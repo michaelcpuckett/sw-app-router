@@ -118,6 +118,12 @@ Use `npm run serve` and `npm run watch` and in the Web Inspector, under the
 Application tab, under Service Workers, select the checkbox for "Update on
 reload".
 
+## Production Builds
+
+Update `dist/cache.json` with an incremented version number with each update. By
+incrementing the version number, you ensure that the browser fetches the latest
+versions of your files instead of using outdated cached versions.
+
 ## License
 
 This project is licensed under the MIT License.

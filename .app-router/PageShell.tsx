@@ -15,7 +15,7 @@ export function PageShell(
       <head>
         <meta charSet="utf-8" />
         <meta
-          http-equiv="Cache-Control"
+          httpEquiv="Cache-Control"
           content="no-store"
         />
         {props.metadata.title && <title>{props.metadata.title}</title>}
@@ -31,6 +31,7 @@ export function PageShell(
         />
         {cssUrls.map((url) => (
           <link
+            key={url}
             rel="stylesheet"
             href={url}
           />
