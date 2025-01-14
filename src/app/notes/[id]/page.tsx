@@ -1,3 +1,4 @@
+import { GetStaticProps, Metadata } from 'app-router/index';
 import MarkdownPreview from 'components/MarkdownPreview';
 import {
   FormEventHandler,
@@ -8,12 +9,12 @@ import {
 } from 'react';
 import { getNotes, Note, setNotesDb } from 'utils/db';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Note Detail',
   description: 'The note detail page.',
 };
 
-export async function getStaticProps(params: Record<string, string>) {
+export const getStaticProps: GetStaticProps = async function (params) {
   const notes = await getNotes();
   const note = notes.find(({ id }) => id === params.id);
 
@@ -24,7 +25,7 @@ export async function getStaticProps(params: Record<string, string>) {
   return {
     initialNote: note,
   };
-}
+};
 
 export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
   const [note, setNote] = useState<Note>(initialNote);

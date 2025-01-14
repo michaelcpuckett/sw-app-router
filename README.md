@@ -1,8 +1,7 @@
 # Service Worker with App Router Starter
 
 This project demonstrates how to serve dynamic HTML with React inside a service
-worker, providing functionality similar to Next.js. The core functionality is
-implemented in the `.app-router` directory.
+worker, providing functionality similar to Next.js.
 
 ## Features
 
@@ -79,10 +78,39 @@ To add a new page:
 1. Create a new folder in the `app` directory and create a `page.tsx` file
    inside it.
 
-1. Define the React component for the page and export `getStaticProps` and
+2. Define the React component for the page and export `getStaticProps` and
    `metadata`.
 
-1. Run `npm run app-router` to update the routes.
+3. Run `npm run app-router` to regenerate the routes.
+
+### Metadata
+
+`metadata` is an object that contains information about the page, such as the
+title, description, and other meta tags. You can define `metadata` as follows:
+
+```ts
+export const metadata = {
+  title: 'Page Title',
+  description: 'Page description',
+};
+```
+
+### `getStaticProps`
+
+`getStaticProps` is a function used to fetch data at render time. It allows you
+to fetch data from an API, database, or file system and pass it as props to the
+page component. The path params are passed to this function. You can define
+getStaticProps as follows:
+
+```ts
+export async function getStaticProps(params: Params) {
+  const data = await fetchData({ id: params.id });
+
+  return {
+    data,
+  };
+}
+```
 
 ## License
 

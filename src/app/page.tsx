@@ -1,19 +1,20 @@
+import { GetStaticProps, Metadata } from 'app-router/index';
 import NoteRow from 'components/NoteRow';
 import { LexoRank } from 'lexorank';
 import { useCallback, useState } from 'react';
 import { getNotes, Note, setNotesDb } from 'utils/db';
 import { v4 as uuid } from 'uuid';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Home',
   description: 'The home page.',
 };
 
-export async function getStaticProps(params: Record<string, string>) {
+export const getStaticProps: GetStaticProps = async function () {
   return {
     initialNotes: await getNotes(),
   };
-}
+};
 
 export default function HomePage({ initialNotes }: { initialNotes: Note[] }) {
   const [notes, setNotes] = useState<Note[]>(initialNotes);
@@ -43,8 +44,11 @@ export default function HomePage({ initialNotes }: { initialNotes: Note[] }) {
 
   return (
     <main>
-      <h1>ExpressWorker/Next App</h1>
-      <p>This is a simple notes app. Notes are saved locally (to IndexedDB).</p>
+      <h1>Service Worker with App Router Starter</h1>
+      <p>
+        This is a simple demonstration of a notes app. Notes are saved locally
+        to IndexedDB.
+      </p>
       <button
         className="button"
         onClick={addNote}

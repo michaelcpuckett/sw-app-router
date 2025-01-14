@@ -8,9 +8,9 @@ import { renderToString } from 'react-dom/server';
 
 export type PageComponent = React.ComponentType<any>;
 
-export type GetStaticProps = (
-  params: Record<string, string>,
-) => Promise<Record<string, any>>;
+export type Params = Record<string, string>;
+
+export type GetStaticProps = (params: Params) => Promise<Record<string, any>>;
 
 export interface Metadata {
   title: string;
