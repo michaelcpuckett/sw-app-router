@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "WebWorker", "DOM.Iterable"],
+    "target": "ESNext",
+    "outDir": "../dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": false,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "app/*": ["./src/app/*"],
+      "components/*": ["./src/components/*"],
+      "sw/*": ["./src/sw/*"],
+      "utils/*": ["./src/utils/*"],
+      "app-router/*": ["./.app-router/*"]
+    }
+  },
+  "include": [
+    "./src/app/**/*",
+    "./src/client/*",
+    "./src/components/*",
+    "./src/utils/*",
+    "./src/sw/*",
+    ".app-router/*"
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

@@ -1,0 +1,87 @@
+*,
+&:before,
+&:after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: calc((14 / 16) * 100%);
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  color-scheme: light dark;
+  background: Canvas;
+  color: CanvasText;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+:focus {
+  outline: 0;
+}
+
+:focus-visible {
+  outline: 2px solid;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+main {
+  padding-left: 12px;
+  padding-right: 12px;
+  display: grid;
+  place-items: start;
+}
+
+[role='grid'] {
+  display: grid;
+  grid-template-columns: minmax(0px, 1fr) repeat(4, auto);
+  width: 100%;
+}
+
+[role='rowgroup'],
+[role='row'] {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  column-gap: 24px;
+  align-items: center;
+}
+
+[role='row'] {
+  padding-bottom: 12px;
+  padding-top: 12px;
+  border-bottom: 1px solid;
+}
+
+[role='row'] form,
+[role='row'] p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.button {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin: 0;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background: ButtonFace;
+  color: CanvasText;
+}
+
+.button[disabled] {
+  cursor: not-allowed;
+}

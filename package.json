@@ -1,0 +1,54 @@
+{
+  "name": "service-worker-react-starter",
+  "version": "1.0.0",
+  "description": "Serve dynamic HTML with React inside a Service Worker",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
+    "build": "parcel build",
+    "serve": "http-server dist -p 8080",
+    "prepare": "ts-node ./.app-router/prepare.ts"
+  },
+  "app": "dist/app.js",
+  "client": "dist/client.js",
+  "targets": {
+    "app": {
+      "source": "./.app-router/index.tsx",
+      "distDir": "./dist",
+      "context": "service-worker"
+    },
+    "client": {
+      "source": "./.app-router/client.tsx",
+      "distDir": "./dist",
+      "context": "browser"
+    }
+  },
+  "author": "Michael Puckett <michael@puckett.contact>",
+  "license": "MIT",
+  "dependencies": {
+    "@everapi/ipbase-js": "^1.0.8",
+    "@express-worker/app": "^1.5.0",
+    "@types/marked": "^6.0.0",
+    "lexorank": "^1.0.5",
+    "marked": "^15.0.6",
+    "path-to-regexp": "^8.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "^7.1.1",
+    "react-router-dom": "^7.1.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.10.3",
+    "@types/debounce": "^1.2.4",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/uuid": "^9.0.7",
+    "http-server": "^14.1.1",
+    "parcel": "^2.10.3",
+    "prettier": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2"
+  }
+}
