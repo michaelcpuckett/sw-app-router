@@ -1,4 +1,4 @@
-# SWAR (Service Worker with App Router) Starter
+# Service Worker with App Router Starter
 
 This project demonstrates how to serve dynamic HTML with React inside a service
 worker, providing functionality similar to Next.js. The core functionality is
@@ -12,8 +12,8 @@ implemented in the `.app-router` directory.
   components on the client.
 - **Static File Handling**: Static files are cached and served by the service
   worker.
-- **"Serverless"**: Offload dynamic HTML generation from the server to the
-  client.
+- **"Serverless"**: Offloads dynamic HTML generation from the server to the
+  client. Requires only a static file hosting provider (such as Firebase).
 
 ## Installation
 
@@ -23,25 +23,29 @@ implemented in the `.app-router` directory.
 npm install
 ```
 
-1. Run the `prepare` script to generate list of routes and static files.
+2. Run the `app-router` script to generate list of routes and static files.
 
 ```sh
-npm run prepare
+npm run app-router
 ```
 
-1. Build the project.
+3. Build the project.
 
 ```sh
 npm run build
 ```
 
-1. Serve the project.
+4. Serve the project.
 
 ```sh
 npm run serve
 ```
 
-1. Open `localhost:8080` in the browser.
+5. Open in the browser.
+
+```sh
+http://localhost:8080
+```
 
 ## .app-router Directory
 
@@ -78,7 +82,7 @@ To add a new page:
 1. Define the React component for the page and export `getStaticProps` and
    `metadata`.
 
-1. Run `npm run prepare` to update the routes.
+1. Run `npm run app-router` to update the routes.
 
 ## License
 

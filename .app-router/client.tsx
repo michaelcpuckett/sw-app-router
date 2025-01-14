@@ -1,13 +1,8 @@
+import { PageProps } from 'app-router/index';
 import routesConfig from 'app-router/routes';
 import { createElement } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
-
-declare global {
-  interface Window {
-    __INITIAL_DATA__: any;
-  }
-}
 
 window.addEventListener('pageshow', function (event: PageTransitionEvent) {
   if (event.persisted) {
@@ -26,28 +21,27 @@ window.addEventListener('DOMContentLoaded', async () => {
     throw new Error('Root element not found.');
   }
 
-  const Component = () => (
+  const PageComponent = () => (
     <BrowserRouter>
       <Routes>
-        {Object.entries<{
-          Component: React.ComponentType<any>;
-          getStaticProps: (
-            params: Record<string, string>,
-          ) => Promise<Record<string, any>>;
-          metadata: {
-            title: string;
-            description?: string;
-          };
-        }>(routesConfig).map(([path, { Component }]) => (
-          <Route
-            key={path}
-            path={convertPath(path.replace(/\/$/, ''))}
-            element={<Component {...window.__INITIAL_DATA__} />}
-          />
-        ))}
+        {Object.entries<PageProps>(routesConfig).map(
+          ([path, { Component }]) => (
+            <Route
+              key={path}
+              path={convertPath(path.replace(/\/$/, ''))}
+              element={<Component {...window.__INITIAL_PROPS__} />}
+            />
+          ),
+        )}
       </Routes>
     </BrowserRouter>
   );
 
-  hydrateRoot(rootElement, createElement(Component as any));
+  hydrateRoot(rootElement, createElement(PageComponent as any));
 });
+
+declare global {
+  interface Window {
+    __INITIAL_PROPS__: any;
+  }
+}

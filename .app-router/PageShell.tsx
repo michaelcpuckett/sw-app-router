@@ -1,11 +1,11 @@
+import { GetStaticProps, Metadata } from 'app-router/index';
 import staticFiles from 'app-router/static.json';
 import React from 'react';
 
 export function PageShell(
   props: React.PropsWithChildren<{
-    title?: string;
-    description?: string;
-    initialData?: Record<string, unknown>;
+    initialProps: Awaited<ReturnType<GetStaticProps>>;
+    metadata: Metadata;
   }>,
 ) {
   const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
@@ -18,11 +18,11 @@ export function PageShell(
           http-equiv="Cache-Control"
           content="no-store"
         />
-        {props.title && <title>{props.title}</title>}
-        {props.description && (
+        {props.metadata.title && <title>{props.metadata.title}</title>}
+        {props.metadata.description && (
           <meta
             name="description"
-            content={props.description}
+            content={props.metadata.description}
           />
         )}
         <meta
@@ -37,8 +37,8 @@ export function PageShell(
         ))}
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.__INITIAL_DATA__ = ${JSON.stringify(
-              props.initialData,
+            __html: `window.__INITIAL_PROPS__ = ${JSON.stringify(
+              props.initialProps,
             )}`,
           }}
         />

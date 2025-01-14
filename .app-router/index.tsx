@@ -1,14 +1,27 @@
 declare var self: ServiceWorkerGlobalScope;
 
-import {
-  ExpressWorker,
-  ExpressWorkerRequest,
-  ExpressWorkerResponse,
-} from '@express-worker/app';
+import { ExpressWorker } from '@express-worker/app';
 import { PageShell } from 'app-router/PageShell';
 import routesConfig from 'app-router/routes';
 import staticFiles from 'app-router/static.json';
 import { renderToString } from 'react-dom/server';
+
+export type PageComponent = React.ComponentType<any>;
+
+export type GetStaticProps = (
+  params: Record<string, string>,
+) => Promise<Record<string, any>>;
+
+export interface Metadata {
+  title: string;
+  description?: string;
+}
+
+export type PageProps = {
+  Component: PageComponent;
+  getStaticProps: GetStaticProps;
+  metadata: Metadata;
+};
 
 function convertPath(path: string) {
   return path.replace(/\[([^\]]+)\]/g, ':$1');
@@ -48,48 +61,34 @@ export default (function useAppRouterArchitecture() {
 
   // Serve static files.
   (function useStaticFiles() {
-    app.get(
-      '*',
-      async (req: ExpressWorkerRequest, res: ExpressWorkerResponse) => {
-        const cachedResponse = await Promise.all(
-          (await caches.keys()).map(async (cacheName) => {
-            return await (await caches.open(cacheName)).match(req.url);
-          }),
-        ).then((responses) => responses.find((response) => response));
+    app.get('*', async (req, res) => {
+      const cachedResponse = await Promise.all(
+        (await caches.keys()).map(async (cacheName) => {
+          return await (await caches.open(cacheName)).match(req.url);
+        }),
+      ).then((responses) => responses.find((response) => response));
 
-        if (cachedResponse) {
-          res.wrap(cachedResponse);
-        } else {
-          res.status(404).send('Not found.');
-        }
-      },
-    );
+      if (cachedResponse) {
+        res.wrap(cachedResponse);
+      } else {
+        res.status(404).send('Not found.');
+      }
+    });
   })();
 
   (function useAppRouter() {
     for (const [
       path,
       { Component, getStaticProps, metadata },
-    ] of Object.entries<{
-      Component: React.ComponentType<any>;
-      getStaticProps?: (
-        params: Record<string, string>,
-      ) => Promise<Record<string, any>>;
-      metadata?: {
-        title: string;
-        description?: string;
-      };
-    }>(routesConfig)) {
+    ] of Object.entries<PageProps>(routesConfig)) {
       app.get(convertPath(path), async (req, res) => {
         try {
-          const initialProps = getStaticProps
-            ? await getStaticProps(req.params)
-            : {};
+          const initialProps = await getStaticProps(req.params);
 
           const renderResult = renderToString(
             <PageShell
-              {...(metadata || {})}
-              initialData={initialProps}
+              metadata={metadata}
+              initialProps={initialProps}
             >
               <Component {...initialProps} />
             </PageShell>,

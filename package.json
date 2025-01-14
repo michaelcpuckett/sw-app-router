@@ -1,5 +1,5 @@
 {
-  "name": "service-worker-react-starter",
+  "name": "sw-app-router-starter",
   "version": "1.0.0",
   "description": "Serve dynamic HTML with React inside a Service Worker",
   "scripts": {
@@ -7,7 +7,7 @@
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
     "build": "parcel build",
     "serve": "http-server dist -p 8080",
-    "prepare": "ts-node ./.app-router/prepare.ts"
+    "app-router": "ts-node ./.app-router/prepare.ts"
   },
   "app": "dist/app.js",
   "client": "dist/client.js",
