@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
-    "build": "parcel build",
+    "build": "cross-env NODE_ENV=production parcel build",
     "dev": "parcel watch",
     "serve": "http-server dist -p 8080",
     "app-router": "ts-node ./.app-router/prepare.ts"
@@ -16,12 +16,14 @@
     "app": {
       "source": "./.app-router/index.tsx",
       "distDir": "./dist",
-      "context": "service-worker"
+      "context": "service-worker",
+      "sourceMap": false
     },
     "client": {
       "source": "./.app-router/client.tsx",
       "distDir": "./dist",
-      "context": "browser"
+      "context": "browser",
+      "sourceMap": false
     }
   },
   "author": "Michael Puckett <michael@puckett.contact>",
@@ -44,6 +46,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@types/uuid": "^9.0.7",
+    "cross-env": "^7.0.3",
     "http-server": "^14.1.1",
     "parcel": "^2.10.3",
     "prettier": "^3.1.0",
