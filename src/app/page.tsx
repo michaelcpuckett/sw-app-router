@@ -30,6 +30,12 @@ export default function HomePage() {
             </ul>
           </li>
           <li>
+            <a href="/pokemon">Pokedex</a>
+            <ul>
+              <li>Connects to a third-party API</li>
+            </ul>
+          </li>
+          <li>
             <a href="/files">File Manager</a>
             <ul>
               <li>Saves files to browser cache</li>

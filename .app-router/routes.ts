@@ -20,6 +20,16 @@ const Routes = {};
 
             Routes['/'] = Page;
           
+
+            import * as PokemonPage from 'app/pokemon/page';
+
+            Routes['/pokemon'] = PokemonPage;
+          
+
+            import * as PokemonNamePage from 'app/pokemon/[name]/page';
+
+            Routes['/pokemon/[name]'] = PokemonNamePage;
+          
         
         export default Routes;
       
