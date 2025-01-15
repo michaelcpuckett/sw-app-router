@@ -44,6 +44,7 @@ export default function FilesPage({
               'Content-Type': file.type,
               'Content-Length': contentLength.toString(),
               'Last-Modified': new Date().toUTCString(),
+              'Content-Disposition': 'attachment',
             },
           });
 

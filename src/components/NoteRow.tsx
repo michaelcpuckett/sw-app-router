@@ -42,19 +42,19 @@ export default function NoteRow({
   }, [note, nextNote, setNotes]);
 
   return (
-    <div role="row">
-      <div role="gridcell">
+    <tr>
+      <th scope="col">
         <p>{note.text.slice(0, 20)}...</p>
-      </div>
-      <div role="gridcell">
+      </th>
+      <td>
         <a
           className="button"
           href={`/notes/${note.id}`}
         >
           Edit
         </a>
-      </div>
-      <div role="gridcell">
+      </td>
+      <td>
         <button
           className="button"
           onClick={handleMoveUp}
@@ -62,8 +62,8 @@ export default function NoteRow({
         >
           Move Up
         </button>
-      </div>
-      <div role="gridcell">
+      </td>
+      <td>
         <button
           className="button"
           onClick={handleMoveDown}
@@ -71,15 +71,15 @@ export default function NoteRow({
         >
           Move Down
         </button>
-      </div>
-      <div role="gridcell">
+      </td>
+      <td>
         <button
           className="button"
           onClick={handleDelete}
         >
           Delete
         </button>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 }

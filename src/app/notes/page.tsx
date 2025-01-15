@@ -63,11 +63,8 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
         >
           Add Note
         </button>
-        <div
-          role="grid"
-          aria-label="Todos"
-        >
-          <div role="rowgroup">
+        <table>
+          <tbody>
             {orderedNotes.map((note, index) => (
               <NoteRow
                 key={note.id}
@@ -77,8 +74,8 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
                 setNotes={setNotes}
               />
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </main>
     </Fragment>
   );

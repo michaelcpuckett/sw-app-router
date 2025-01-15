@@ -48,14 +48,14 @@ main {
   place-items: start;
 }
 
-[role='grid'] {
+table {
   display: grid;
   grid-template-columns: minmax(0px, 1fr) repeat(4, auto);
   width: 100%;
 }
 
-[role='rowgroup'],
-[role='row'] {
+tbody,
+tr {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
@@ -63,16 +63,20 @@ main {
   align-items: center;
 }
 
-[role='row'] {
+tr {
   padding-bottom: 12px;
   padding-top: 12px;
   border-bottom: 1px solid;
 }
 
-[role='row'] form,
-[role='row'] p {
+tr form,
+tr p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+th[scope='col'] {
+  text-align: start;
 }
 
 .button {
