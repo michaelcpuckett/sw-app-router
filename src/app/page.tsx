@@ -34,11 +34,6 @@ export default function HomePage() {
             </ul>
           </li>
         </ul>
-        <h2>Ideas</h2>
-        <ul>
-          <li>Blog with Markdown</li>
-          <li>Sync with database via REST API</li>
-        </ul>
       </main>
     </Fragment>
   );
