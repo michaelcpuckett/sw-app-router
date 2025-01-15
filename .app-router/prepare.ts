@@ -34,7 +34,11 @@ function getAppRoutes() {
   return routes;
 }
 
-function writeAppRoutesToFile() {
+const toCamelCase = (string: string) => {
+  return string.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+};
+
+async function writeAppRoutesToFile() {
   try {
     const routes = getAppRoutes();
     const outputPath = path.resolve(__dirname, 'routes.ts');
@@ -43,22 +47,22 @@ function writeAppRoutesToFile() {
       outputPath,
       `const Routes = {};
 
-      ${Object.entries<{
-        Component: Function;
-        getStaticProps: Function;
-        metadata: Record<string, string>;
-      }>(routes)
-        .map(([route, { Component }]) => {
+      ${Object.keys(routes)
+        .map((route) => {
+          const routeSlug = toCamelCase(
+            route.replace(/\//g, '-').replace(/[\[\]]/g, ''),
+          );
+
           return `
-            import ${Component.name}, {
-              getStaticProps as get${Component.name}Props,
-              metadata as ${Component.name}Metadata,
+            import ${routeSlug}, {
+              getStaticProps as get${routeSlug}Props,
+              metadata as ${routeSlug}Metadata,
             } from 'app${route}';
 
             Routes['${route.replace('page', '').replace(/\/$/, '') || '/'}'] = {
-              Component: ${Component.name},
-              getStaticProps: get${Component.name}Props,
-              metadata: ${Component.name}Metadata,
+              Component: ${routeSlug},
+              getStaticProps: get${routeSlug}Props,
+              metadata: ${routeSlug}Metadata,
             };
           `;
         })

@@ -1,29 +1,47 @@
 const Routes = {};
 
-      
-            import NoteDetailPage, {
-              getStaticProps as getNoteDetailPageProps,
-              metadata as NoteDetailPageMetadata,
-            } from 'app/notes/[id]/page';
+import FilesPage, {
+  metadata as FilesPageMetadata,
+  getStaticProps as getFilesPageProps,
+} from 'app/files/page';
 
-            Routes['/notes/[id]'] = {
-              Component: NoteDetailPage,
-              getStaticProps: getNoteDetailPageProps,
-              metadata: NoteDetailPageMetadata,
-            };
-          
+Routes['/files'] = {
+  Component: FilesPage,
+  getStaticProps: getFilesPageProps,
+  metadata: FilesPageMetadata,
+};
 
-            import HomePage, {
-              getStaticProps as getHomePageProps,
-              metadata as HomePageMetadata,
-            } from 'app/page';
+import NotesPage, {
+  getStaticProps as getNotesPageProps,
+  metadata as NotesPageMetadata,
+} from 'app/notes/page';
 
-            Routes['/'] = {
-              Component: HomePage,
-              getStaticProps: getHomePageProps,
-              metadata: HomePageMetadata,
-            };
-          
-        
-        export default Routes;
-      
+Routes['/notes'] = {
+  Component: NotesPage,
+  getStaticProps: getNotesPageProps,
+  metadata: NotesPageMetadata,
+};
+
+import NotesIdPage, {
+  getStaticProps as getNotesIdPageProps,
+  metadata as NotesIdPageMetadata,
+} from 'app/notes/[id]/page';
+
+Routes['/notes/[id]'] = {
+  Component: NotesIdPage,
+  getStaticProps: getNotesIdPageProps,
+  metadata: NotesIdPageMetadata,
+};
+
+import Page, {
+  getStaticProps as getPageProps,
+  metadata as PageMetadata,
+} from 'app/page';
+
+Routes['/'] = {
+  Component: Page,
+  getStaticProps: getPageProps,
+  metadata: PageMetadata,
+};
+
+export default Routes;
