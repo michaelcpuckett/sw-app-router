@@ -24,15 +24,15 @@ export default function HomePage() {
           <li>
             <a href="/notes">Notes</a>
             <ul>
-              <li>Dynamic routing</li>
               <li>Saves notes to IndexedDB</li>
-              <li>Notes can be reordered via LexoRank</li>
+              <li>Dynamic routing to view each Note</li>
             </ul>
           </li>
           <li>
             <a href="/pokemon">Pokedex</a>
             <ul>
               <li>Connects to a third-party API</li>
+              <li>Dynamic routing to view each Pokemon</li>
             </ul>
           </li>
           <li>

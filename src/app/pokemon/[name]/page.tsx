@@ -1,5 +1,5 @@
 import { GetStaticProps, Metadata } from 'app-router/index';
-import PokeAPI, { NamedAPIResource } from 'pokedex-promise-v2';
+import PokeAPI, { PokemonType } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {
@@ -16,20 +16,29 @@ export const getStaticProps: GetStaticProps = async function (params) {
     await cache.add(image);
   }
 
+  const name = species.name;
+  const types = species.types;
+
   return {
-    species,
+    image,
+    types,
+    name,
   };
 };
 
 export default function PokemonSpeciesPage({
-  species,
+  image,
+  types,
+  name,
 }: {
-  species: NamedAPIResource;
+  image: string;
+  types: PokemonType[];
+  name: string;
 }) {
   return (
     <Fragment>
       <header>
-        <h1>{species.name}</h1>
+        <h1>{name}</h1>
       </header>
       <nav>
         <a
@@ -41,10 +50,16 @@ export default function PokemonSpeciesPage({
       </nav>
       <br />
       <main>
-        <p>Types: {species.types.map(({ type }) => type.name).join(', ')}</p>
+        <h2>Types</h2>
+        <ul>
+          {types.map(({ type }) => (
+            <li key={type.name}>{type.name}</li>
+          ))}
+        </ul>
+        <h2>Image</h2>
         <img
-          src={species.sprites.other['official-artwork'].front_default}
-          alt={species.name}
+          src={image}
+          alt={name}
         />
       </main>
     </Fragment>
