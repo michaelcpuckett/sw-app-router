@@ -3,6 +3,8 @@
 This project demonstrates how to serve dynamic HTML with React inside a service
 worker, providing functionality similar to Next.js.
 
+![Logo](sw-react-logo.png)
+
 ## Features
 
 - **Dynamic Routing**: Similar to Next.js, routes are defined in a directory
