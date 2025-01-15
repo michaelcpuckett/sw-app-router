@@ -36,6 +36,11 @@ body {
   white-space: nowrap;
 }
 
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 header,
 nav,
 main {

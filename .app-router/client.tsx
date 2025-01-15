@@ -15,7 +15,7 @@ function convertPath(path: string) {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const rootElement = window.document.body;
+  const rootElement = window.document.getElementById('root');
 
   if (!rootElement) {
     throw new Error('Root element not found.');
