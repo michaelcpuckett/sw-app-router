@@ -1,18 +1,34 @@
 # Service Worker with App Router Starter
 
 This project demonstrates how to serve dynamic HTML with React inside a service
-worker, with a developer experience similar to that of Next.js.
+worker. The developer experience is similar to that of Next.js.
 
 ## Features
 
-- **App Router**: Similar to Next.js, routes are defined as a directory
-  structure, which can include dynamic paths.
-- **React SSR**: Uses React for rendering the initial HTML and for hydrating
-  components on the client.
-- **Static File Handling**: Static files are cached and served by the service
-  worker.
-- **"Serverless"**: Offloads dynamic HTML generation from the server to the
-  client. Requires only a static file hosting provider (such as Firebase).
+### App Router
+
+Similar to Next.js, routes are defined as a directory structure under `src/app`.
+
+Dynamic routes are defined by using square brackets in the folder name. For
+example, if you want to create a dynamic route for user profiles, you can create
+a folder with a path of `src/app/profiles/[id]`.
+
+### React SSR
+
+The initial page HTML is rendered by React-DOM/Server and gets hydrated by
+React-DOM/Client.
+
+### Static File Handling
+
+Static files in the `dist` directory are cached and served by the service
+worker.
+
+### "Serverless"
+
+Dynamic HTML generation is offloaded from the server to the client.
+
+The server only needs to be able to serve the initial static files. This project
+uses Firebase Static Hosting.
 
 ## Installation
 
