@@ -5,8 +5,8 @@ worker, providing functionality similar to Next.js.
 
 ## Features
 
-- **Dynamic Routing**: Similar to Next.js, routes are defined in a directory
-  structure and handled dynamically.
+- **App Router**: Similar to Next.js, routes are defined as a directory
+  structure, which can include dynamic paths.
 - **React SSR**: Uses React for rendering the initial HTML and for hydrating
   components on the client.
 - **Static File Handling**: Static files are cached and served by the service
@@ -67,9 +67,9 @@ into the HTML.
 
 ### `prepare.ts`
 
-This script generates the route and static files configuration required by the
-service worker. It scans the app directory for pages and the dist directory for
-static files.
+The `app-router` script generates the route and static files configuration
+required by the service worker. It scans the app directory for pages and the
+dist directory for static files.
 
 ## Usage
 
@@ -109,6 +109,18 @@ export async function getStaticProps(params: Params) {
   return {
     data,
   };
+}
+```
+
+## Page component
+
+The `default` export should be the Page component. The only props it will
+receive are the ones defined in `getStaticProps`. It will be wrapped in the
+`PageShell`.
+
+```ts
+export default function HomePage({ data }: { data: Data }) {
+  return (...);
 }
 ```
 
