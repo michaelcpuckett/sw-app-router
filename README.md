@@ -147,6 +147,8 @@ Use `npm run serve` and `npm run watch`.
 For easiest debugging, in the Web Inspector, under the Application tab, under
 Service Workers, select the checkbox for "Update on reload".
 
+Styles can be edited directly in `dist/styles.css`.
+
 ## Production Builds
 
 Update `dist/cache.json` with an incremented version number with each update. By
