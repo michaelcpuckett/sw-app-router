@@ -134,9 +134,9 @@ The `default` export should be the Page component. The only props it will
 receive are the ones defined in `getStaticProps`. It will be wrapped in the
 `PageShell`.
 
-```ts
+```tsx
 export default function HomePage({ data }: { data: Data }) {
-  return (...);
+  return <main>...</main>;
 }
 ```
 
