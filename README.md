@@ -136,7 +136,7 @@ receive are the ones defined in `getStaticProps`. It will be wrapped in the
 
 ```tsx
 export default function HomePage({ data }: { data: Data }) {
-  return <main>...</main>;
+  return <main>{data.foo}</main>;
 }
 ```
 
