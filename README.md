@@ -140,11 +140,12 @@ export default function HomePage({ data }: { data: Data }) {
 }
 ```
 
-## Debugging
+## Development
 
-Use `npm run serve` and `npm run watch` and in the Web Inspector, under the
-Application tab, under Service Workers, select the checkbox for "Update on
-reload".
+Use `npm run serve` and `npm run watch`.
+
+For easiest debugging, in the Web Inspector, under the Application tab, under
+Service Workers, select the checkbox for "Update on reload".
 
 ## Production Builds
 
