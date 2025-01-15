@@ -1,15 +1,14 @@
 import { GetStaticProps, Metadata } from 'app-router/index';
-import staticFiles from 'app-router/static.json';
 import React from 'react';
 
 export function PageShell(
   props: React.PropsWithChildren<{
     initialProps: Awaited<ReturnType<GetStaticProps>>;
     metadata: Metadata;
+    css: string;
+    js: string;
   }>,
 ) {
-  const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
-
   return (
     <html lang="en">
       <head>
@@ -18,7 +17,7 @@ export function PageShell(
           httpEquiv="Cache-Control"
           content="no-store"
         />
-        {props.metadata.title && <title>{props.metadata.title}</title>}
+        <title>{props.metadata.title}</title>
         {props.metadata.description && (
           <meta
             name="description"
@@ -29,13 +28,14 @@ export function PageShell(
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        {cssUrls.map((url) => (
-          <link
-            key={url}
-            rel="stylesheet"
-            href={url}
-          />
-        ))}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: props.css,
+          }}
+        ></style>
+      </head>
+      <body>
+        <div id="root">{props.children}</div>
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__INITIAL_PROPS__ = ${JSON.stringify(
@@ -43,9 +43,12 @@ export function PageShell(
             )}`,
           }}
         />
-        <script src="/client.js"></script>
-      </head>
-      <body>{props.children}</body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: props.js.replace(/<\/script>/g, '</scr"+"ipt>'),
+          }}
+        />
+      </body>
     </html>
   );
 }

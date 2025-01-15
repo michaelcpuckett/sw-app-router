@@ -42,7 +42,7 @@ export default (function useAppRouterArchitecture() {
         const urlsToCache = staticFiles.map((url) => {
           return new Request(new URL(url, self.location.origin).href);
         });
-        const cache = await caches.open(`v1`);
+        const cache = await caches.open('dist');
         await cache.addAll(urlsToCache);
       })(),
     );
@@ -99,11 +99,36 @@ export default (function useAppRouterArchitecture() {
 
         try {
           const initialProps = await getStaticProps(req.params);
+          const cache = await caches.open('dist');
+          const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
+          const cssFileContents = (
+            await Promise.all(
+              cssUrls.map(async (url) => {
+                const response = await cache.match(url);
+
+                if (!response) {
+                  throw new Error('Cache miss.');
+                }
+
+                return response.text();
+              }),
+            )
+          ).join('\n\n');
+
+          const jsFile = await cache.match('/client.js');
+
+          if (!jsFile) {
+            throw new Error('Cache miss.');
+          }
+
+          const jsFileContents = await jsFile.text();
 
           const renderResult = renderToString(
             <PageShell
               metadata={metadata}
               initialProps={initialProps}
+              css={cssFileContents}
+              js={jsFileContents}
             >
               <Component {...initialProps} />
             </PageShell>,
