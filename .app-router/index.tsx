@@ -6,6 +6,7 @@ import routesConfig from 'app-router/routes';
 import staticFiles from 'app-router/static.json';
 import { renderToString } from 'react-dom/server';
 import { version } from '../dist/cache.json';
+import * as NotFoundPageModule from './NotFoundPage';
 
 export type PageComponent = React.ComponentType<any>;
 
@@ -18,8 +19,8 @@ export interface Metadata {
   description?: string;
 }
 
-export type PageProps = {
-  Component: PageComponent;
+export type PageModule = {
+  default: PageComponent;
   getStaticProps: GetStaticProps;
   metadata: Metadata;
 };
@@ -67,7 +68,14 @@ export default (function useAppRouterArchitecture() {
       if (cachedResponse) {
         res.wrap(cachedResponse);
       } else {
-        res.status(404).send('Not found.');
+        const notFoundPageStaticProps =
+          await NotFoundPageModule.getStaticProps();
+
+        const renderResult = renderToString(
+          <NotFoundPageModule.default {...notFoundPageStaticProps} />,
+        );
+
+        res.status(404).send(renderResult);
       }
     });
   })();
@@ -75,8 +83,8 @@ export default (function useAppRouterArchitecture() {
   (function useAppRouter() {
     for (const [
       path,
-      { Component, getStaticProps, metadata },
-    ] of Object.entries<PageProps>(routesConfig)) {
+      { default: Component, getStaticProps, metadata },
+    ] of Object.entries<PageModule>(routesConfig)) {
       app.get(convertPath(path), async (req, res) => {
         if (navigator.onLine) {
           fetch('/cache.json', {
@@ -137,7 +145,13 @@ export default (function useAppRouterArchitecture() {
           res.send(renderResult);
         } catch (error) {
           console.log(error);
-          res.status(404).send('Not found');
+          const notFoundPageStaticProps =
+            await NotFoundPageModule.getStaticProps();
+
+          const renderResult = renderToString(
+            <NotFoundPageModule.default {...notFoundPageStaticProps} />,
+          );
+          res.status(404).send(renderResult);
         }
       });
     }

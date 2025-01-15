@@ -64,16 +64,7 @@
             }
           });
 
-          // Fetch the generated HTML for this URL from the service worker.
-          const response = await window.fetch('/').then((res) => res.text());
-          const parser = new DOMParser();
-          const htmlDocument = parser.parseFromString(response, 'text/html');
-          const newDocument = htmlDocument.cloneNode(true);
-
-          // Replace the current document with the generated one.
-          window.document.open();
-          window.document.write(newDocument.documentElement.outerHTML);
-          window.document.close();
+          window.location.reload();
         })
         .catch((error) => {
           console.error(error);

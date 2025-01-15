@@ -58,7 +58,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
       <nav>
         <a
           className="button"
-          href="/"
+          href="/notes"
         >
           Back
         </a>

@@ -1,4 +1,4 @@
-import { PageProps } from 'app-router/index';
+import { PageModule } from 'app-router/index';
 import routesConfig from 'app-router/routes';
 import { createElement } from 'react';
 import { hydrateRoot } from 'react-dom/client';
@@ -24,8 +24,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   const PageComponent = () => (
     <BrowserRouter>
       <Routes>
-        {Object.entries<PageProps>(routesConfig).map(
-          ([path, { Component }]) => (
+        {Object.entries<PageModule>(routesConfig).map(
+          ([path, { default: Component }]) => (
             <Route
               key={path}
               path={convertPath(path.replace(/\/$/, ''))}

@@ -19,13 +19,8 @@ function getAppRoutes() {
           .replace(/\\/g, '/')
           .replace(/\.tsx$/, '');
         const pageModule = require(filePath);
-        const { default: Component, getStaticProps, metadata } = pageModule;
 
-        routes[`/${pageName}`] = {
-          Component,
-          getStaticProps,
-          metadata,
-        };
+        routes[`/${pageName}`] = pageModule;
       }
     });
   }
@@ -54,16 +49,11 @@ async function writeAppRoutesToFile() {
           );
 
           return `
-            import ${routeSlug}, {
-              getStaticProps as get${routeSlug}Props,
-              metadata as ${routeSlug}Metadata,
-            } from 'app${route}';
+            import * as ${routeSlug} from 'app${route}';
 
-            Routes['${route.replace('page', '').replace(/\/$/, '') || '/'}'] = {
-              Component: ${routeSlug},
-              getStaticProps: get${routeSlug}Props,
-              metadata: ${routeSlug}Metadata,
-            };
+            Routes['${
+              route.replace('page', '').replace(/\/$/, '') || '/'
+            }'] = ${routeSlug};
           `;
         })
         .join('\n')}

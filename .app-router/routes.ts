@@ -1,47 +1,25 @@
 const Routes = {};
 
-import FilesPage, {
-  metadata as FilesPageMetadata,
-  getStaticProps as getFilesPageProps,
-} from 'app/files/page';
+      
+            import * as FilesPage from 'app/files/page';
 
-Routes['/files'] = {
-  Component: FilesPage,
-  getStaticProps: getFilesPageProps,
-  metadata: FilesPageMetadata,
-};
+            Routes['/files'] = FilesPage;
+          
 
-import NotesPage, {
-  getStaticProps as getNotesPageProps,
-  metadata as NotesPageMetadata,
-} from 'app/notes/page';
+            import * as NotesPage from 'app/notes/page';
 
-Routes['/notes'] = {
-  Component: NotesPage,
-  getStaticProps: getNotesPageProps,
-  metadata: NotesPageMetadata,
-};
+            Routes['/notes'] = NotesPage;
+          
 
-import NotesIdPage, {
-  getStaticProps as getNotesIdPageProps,
-  metadata as NotesIdPageMetadata,
-} from 'app/notes/[id]/page';
+            import * as NotesIdPage from 'app/notes/[id]/page';
 
-Routes['/notes/[id]'] = {
-  Component: NotesIdPage,
-  getStaticProps: getNotesIdPageProps,
-  metadata: NotesIdPageMetadata,
-};
+            Routes['/notes/[id]'] = NotesIdPage;
+          
 
-import Page, {
-  getStaticProps as getPageProps,
-  metadata as PageMetadata,
-} from 'app/page';
+            import * as Page from 'app/page';
 
-Routes['/'] = {
-  Component: Page,
-  getStaticProps: getPageProps,
-  metadata: PageMetadata,
-};
-
-export default Routes;
+            Routes['/'] = Page;
+          
+        
+        export default Routes;
+      
