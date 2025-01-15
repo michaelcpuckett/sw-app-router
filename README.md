@@ -130,9 +130,8 @@ export async function getStaticProps(params: Params) {
 
 ## Page component
 
-The `default` export should be the Page component. The only props it will
-receive are the ones defined in `getStaticProps`. It will be wrapped in the
-`PageShell`.
+The `default` export should be the Page component. It will receive the props
+defined in `getStaticProps`. It will be wrapped in the `PageShell`.
 
 ```tsx
 export default function HomePage({ data }: { data: Data }) {
@@ -142,7 +141,7 @@ export default function HomePage({ data }: { data: Data }) {
 
 ## Development
 
-Use `npm run serve` and `npm run watch`.
+Use `npm run serve` and `npm run watch` during development.
 
 For easiest debugging, in the Web Inspector, under the Application tab, under
 Service Workers, select the checkbox for "Update on reload".
@@ -150,6 +149,8 @@ Service Workers, select the checkbox for "Update on reload".
 Styles can be edited directly in `dist/styles.css`.
 
 ## Production Builds
+
+Use `npm run build` to generate a production build.
 
 Update `dist/cache.json` with an incremented version number with each update. By
 incrementing the version number, you ensure that the browser fetches the latest
