@@ -117,7 +117,9 @@ export const getStaticProps: GetStaticProps = async function ({
   const data = await fetchData({ id });
 
   return {
-    data,
+    props: {
+      data,
+    },
   };
 };
 ```
