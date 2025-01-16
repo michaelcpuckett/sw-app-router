@@ -2,24 +2,43 @@ import { GetMetadata, GetStaticProps } from 'app-router/index';
 import PokeAPI, {
   Chain,
   EvolutionChain,
-  PokemonSpecies,
   PokemonType,
 } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 
+interface PokemonPageProps {
+  image: string;
+  types: PokemonType[];
+  name: string;
+  evolutionChain: EvolutionChain;
+  previousPokemon?: string;
+  nextPokemon?: string;
+}
+
 export const getStaticProps: GetStaticProps = async function ({
   params: { name },
 }) {
+  const pokemonDataCache = await caches.open('pokemon-data');
+  const cachedPokemonData = await pokemonDataCache.match(name);
+
+  if (cachedPokemonData) {
+    return {
+      props: await cachedPokemonData.json(),
+    };
+  }
+
   const pokeAPI = new PokeAPI();
-  const pokemon = await pokeAPI.getPokemonByName(name);
-  const species = await pokeAPI.getPokemonSpeciesByName(name);
+  const [pokemon, species] = await Promise.all([
+    pokeAPI.getPokemonByName(name),
+    pokeAPI.getPokemonSpeciesByName(name),
+  ]);
   const evolutionChainResourceUrl = species.evolution_chain.url;
   const evolutionChain = await pokeAPI.getResource(evolutionChainResourceUrl);
-  const image = pokemon.sprites.other['official-artwork'].front_default;
+  const image = pokemon.sprites.other['official-artwork'].front_default || '';
 
   if (image) {
-    const cache = await caches.open('pokemon-images');
-    await cache.add(image);
+    const pokemonImageCache = await caches.open('pokemon-images');
+    await pokemonImageCache.add(image);
   }
 
   const types = pokemon.types;
@@ -32,17 +51,26 @@ export const getStaticProps: GetStaticProps = async function ({
     .getPokemonByName(number + 1)
     .catch(() => null);
 
+  const props: PokemonPageProps = {
+    image,
+    previousPokemon: previousPokemon?.name,
+    nextPokemon: nextPokemon?.name,
+    types,
+    name,
+    evolutionChain,
+  };
+
+  await pokemonDataCache.put(
+    name,
+    new Response(JSON.stringify(props), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }),
+  );
+
   return {
-    props: {
-      image,
-      number,
-      previousPokemon,
-      nextPokemon,
-      types,
-      name,
-      species,
-      evolutionChain,
-    },
+    props,
   };
 };
 
@@ -57,14 +85,7 @@ export default function PokemonSpeciesPage({
   evolutionChain,
   previousPokemon,
   nextPokemon,
-}: {
-  image: string;
-  types: PokemonType[];
-  name: string;
-  evolutionChain: EvolutionChain;
-  previousPokemon: PokemonSpecies;
-  nextPokemon: PokemonSpecies;
-}) {
+}: PokemonPageProps) {
   function renderEvolutionChain(chain: Chain) {
     return (
       <li
@@ -103,17 +124,17 @@ export default function PokemonSpeciesPage({
         {previousPokemon && (
           <a
             className="button"
-            href={'/pokemon/' + previousPokemon.name}
+            href={'/pokemon/' + previousPokemon}
           >
-            Previous - {previousPokemon.name}
+            Previous - {previousPokemon}
           </a>
         )}
         {nextPokemon && (
           <a
             className="button"
-            href={'/pokemon/' + nextPokemon.name}
+            href={'/pokemon/' + nextPokemon}
           >
-            Next - {nextPokemon.name}
+            Next - {nextPokemon}
           </a>
         )}
       </nav>
