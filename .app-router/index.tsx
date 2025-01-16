@@ -141,7 +141,7 @@ export default (function useAppRouterArchitecture() {
               ? await module.metadata({ params: req.params })
               : module.metadata;
 
-          const renderResult = await renderToReadableStream(
+          const FullPageComponent = (
             <PageShell
               metadata={metadata}
               staticProps={staticProps}
@@ -149,12 +149,33 @@ export default (function useAppRouterArchitecture() {
               js={jsFileContents}
             >
               <Component {...staticProps.props} />
-            </PageShell>,
+            </PageShell>
           );
 
-          res.wrap(new Response(renderResult));
+          // Streaming responses not supported in Safari.
+          const isSafari = /^((?!chrome|android).)*safari/i.test(
+            navigator.userAgent,
+          );
+
+          if (isSafari) {
+            const renderResult = renderToString(FullPageComponent);
+
+            res.send(renderResult);
+          } else {
+            const streamingResult =
+              await renderToReadableStream(FullPageComponent);
+
+            res.wrap(
+              new Response(streamingResult, {
+                headers: {
+                  'Content-Type': 'text/html',
+                },
+              }),
+            );
+          }
         } catch (error) {
           console.log(error);
+
           const notFoundPageStaticProps =
             await NotFoundPageModule.getStaticProps();
 
