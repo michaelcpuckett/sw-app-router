@@ -104,3 +104,7 @@ textarea {
   width: 100%;
   min-height: 5lh;
 }
+
+@view-transition {
+  navigation: auto;
+}
