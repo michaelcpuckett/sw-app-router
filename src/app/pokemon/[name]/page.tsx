@@ -1,5 +1,6 @@
 import { GetMetadata, GetStaticProps } from 'app-router/index';
 import PokeAPI, {
+  Chain,
   EvolutionChain,
   PokemonSpecies,
   PokemonType,
@@ -32,14 +33,16 @@ export const getStaticProps: GetStaticProps = async function ({
     .catch(() => null);
 
   return {
-    image,
-    number,
-    previousPokemon,
-    nextPokemon,
-    types,
-    name,
-    species,
-    evolutionChain,
+    props: {
+      image,
+      number,
+      previousPokemon,
+      nextPokemon,
+      types,
+      name,
+      species,
+      evolutionChain,
+    },
   };
 };
 
@@ -62,7 +65,7 @@ export default function PokemonSpeciesPage({
   previousPokemon: PokemonSpecies;
   nextPokemon: PokemonSpecies;
 }) {
-  function renderEvolutionChain(chain) {
+  function renderEvolutionChain(chain: Chain) {
     return (
       <li
         key={chain.species.name}

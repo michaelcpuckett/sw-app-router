@@ -23,7 +23,9 @@ export const getStaticProps: GetStaticProps = async function ({ params }) {
   }
 
   return {
-    initialNote: note,
+    props: {
+      initialNote: note,
+    },
   };
 };
 

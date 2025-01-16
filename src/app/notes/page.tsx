@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 export const getStaticProps: GetStaticProps = async function () {
   return {
-    initialNotes: await getNotes(),
+    props: {
+      initialNotes: await getNotes(),
+    },
   };
 };
 

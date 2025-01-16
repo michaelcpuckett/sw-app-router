@@ -10,7 +10,9 @@ export const getStaticProps: GetStaticProps = async function (params) {
   const keys = await cache.keys();
 
   return {
-    initialImageUrls: keys.map((request) => request.url),
+    props: {
+      initialImageUrls: keys.map((request) => request.url),
+    },
   };
 };
 

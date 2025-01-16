@@ -6,7 +6,9 @@ export const metadata: Metadata = {
 };
 
 export const getStaticProps: GetStaticProps = async function () {
-  return {};
+  return {
+    props: {},
+  };
 };
 
 export default function HomePage() {

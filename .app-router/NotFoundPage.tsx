@@ -21,14 +21,16 @@ export async function getStaticProps() {
   ).join('\n\n');
 
   return {
-    css: cssFileContents,
+    props: {
+      css: cssFileContents,
+    },
   };
 }
 
 export default function NotFoundPage({ css }: { css: string }) {
   return (
     <PageShell
-      initialProps={{}}
+      staticProps={{}}
       metadata={{
         title: 'Not Found',
       }}

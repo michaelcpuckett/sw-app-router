@@ -78,7 +78,7 @@ export default (function useAppRouterArchitecture() {
           await NotFoundPageModule.getStaticProps();
 
         const renderResult = renderToString(
-          <NotFoundPageModule.default {...notFoundPageStaticProps} />,
+          <NotFoundPageModule.default {...notFoundPageStaticProps.props} />,
         );
 
         res.status(404).send(renderResult);
@@ -111,7 +111,7 @@ export default (function useAppRouterArchitecture() {
         }
 
         try {
-          const initialProps = await getStaticProps({ params: req.params });
+          const staticProps = await getStaticProps({ params: req.params });
           const cache = await caches.open('dist');
           const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
           const cssFileContents = (
@@ -144,11 +144,11 @@ export default (function useAppRouterArchitecture() {
           const renderResult = await renderToReadableStream(
             <PageShell
               metadata={metadata}
-              initialProps={initialProps}
+              staticProps={staticProps}
               css={cssFileContents}
               js={jsFileContents}
             >
-              <Component {...initialProps} />
+              <Component {...staticProps.props} />
             </PageShell>,
           );
 
@@ -159,7 +159,7 @@ export default (function useAppRouterArchitecture() {
             await NotFoundPageModule.getStaticProps();
 
           const renderResult = renderToString(
-            <NotFoundPageModule.default {...notFoundPageStaticProps} />,
+            <NotFoundPageModule.default {...notFoundPageStaticProps.props} />,
           );
 
           res.status(404).send(renderResult);

@@ -10,7 +10,9 @@ export const getStaticProps: GetStaticProps = async function () {
   const pokeAPI = new PokeAPI();
 
   return {
-    speciesList: await pokeAPI.getPokemonSpeciesList(),
+    props: {
+      speciesList: await pokeAPI.getPokemonSpeciesList(),
+    },
   };
 };
 

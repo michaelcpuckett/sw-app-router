@@ -1,27 +1,31 @@
 import { GetStaticProps, Metadata } from 'app-router/index';
 import React from 'react';
 
-export function PageShell(
-  props: React.PropsWithChildren<{
-    initialProps: Awaited<ReturnType<GetStaticProps>>;
-    metadata: Metadata;
-    css: string;
-    js: string;
-  }>,
-) {
+export function PageShell({
+  staticProps,
+  metadata,
+  css,
+  js,
+  children,
+}: React.PropsWithChildren<{
+  staticProps: Awaited<ReturnType<GetStaticProps>>;
+  metadata: Metadata;
+  css: string;
+  js: string;
+}>) {
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>{props.metadata.title}</title>
+        <title>{metadata.title}</title>
         <meta
           httpEquiv="Cache-Control"
           content="no-store"
         />
-        {props.metadata.description && (
+        {metadata.description && (
           <meta
             name="description"
-            content={props.metadata.description}
+            content={metadata.description}
           />
         )}
         <meta
@@ -30,22 +34,22 @@ export function PageShell(
         />
         <style
           dangerouslySetInnerHTML={{
-            __html: props.css,
+            __html: css,
           }}
         ></style>
       </head>
       <body>
-        <div id="root">{props.children}</div>
+        <div id="root">{children}</div>
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__INITIAL_PROPS__ = ${JSON.stringify(
-              props.initialProps,
+              staticProps.props,
             )}`,
           }}
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: props.js.replace(/<\/script>/g, '</scr"+"ipt>'),
+            __html: js.replace(/<\/script>/g, '</scr"+"ipt>'),
           }}
         />
       </body>
