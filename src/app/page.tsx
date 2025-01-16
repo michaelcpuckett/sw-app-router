@@ -16,7 +16,10 @@ export default function HomePage() {
     <Fragment>
       <header>
         <h1>Service Worker with App Router Starter</h1>
-        <a href="https://github.com/michaelcpuckett/sw-app-router-starter">
+        <a
+          className="button"
+          href="https://github.com/michaelcpuckett/sw-app-router-starter"
+        >
           GitHub
         </a>
       </header>

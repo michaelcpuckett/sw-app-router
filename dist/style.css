@@ -95,8 +95,8 @@ th[scope='col'] {
   font: inherit;
   text-decoration: none;
   cursor: pointer;
-  background: ButtonFace;
-  color: CanvasText;
+  background: deepskyblue;
+  color: black;
   place-self: start;
 }
 

@@ -90,7 +90,12 @@ export default function PokemonSpeciesPage({
     return (
       <li
         key={chain.species.name}
-        style={{ display: 'flex' }}
+        style={{
+          margin: '1em 0',
+          flexWrap: 'wrap',
+          display: 'flex',
+          gap: '1em',
+        }}
       >
         <a
           className="button"
@@ -114,7 +119,14 @@ export default function PokemonSpeciesPage({
       <header>
         <h1>{name}</h1>
       </header>
-      <nav style={{ margin: '1em 0', display: 'flex', gap: '1em' }}>
+      <nav
+        style={{
+          margin: '1em 0',
+          flexWrap: 'wrap',
+          display: 'flex',
+          gap: '1em',
+        }}
+      >
         <a
           className="button"
           href="/pokemon"
