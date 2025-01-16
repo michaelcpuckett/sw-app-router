@@ -2,7 +2,7 @@ import { GetStaticProps, Metadata } from 'app-router/index';
 import { ChangeEventHandler, Fragment, useCallback, useState } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Files',
+  title: 'Image Gallery',
 };
 
 export const getStaticProps: GetStaticProps = async function (params) {
@@ -10,18 +10,18 @@ export const getStaticProps: GetStaticProps = async function (params) {
   const keys = await cache.keys();
 
   return {
-    initialFileUrls: keys.map((request) => request.url),
+    initialImageUrls: keys.map((request) => request.url),
   };
 };
 
-export default function FilesPage({
-  initialFileUrls,
+export default function ImageGalleryPage({
+  initialImageUrls,
 }: {
-  initialFileUrls: string[];
+  initialImageUrls: string[];
 }) {
-  const [fileUrls, setFileUrls] = useState<string[]>(initialFileUrls);
+  const [imageUrls, setImageUrls] = useState<string[]>(initialImageUrls);
 
-  const addFile = useCallback<ChangeEventHandler<HTMLInputElement>>(
+  const addImage = useCallback<ChangeEventHandler<HTMLInputElement>>(
     async (event) => {
       const files = event.target.files;
 
@@ -52,17 +52,17 @@ export default function FilesPage({
 
           await cache.put(request, response);
 
-          setFileUrls((fileUrls) => [...fileUrls, url]);
+          setImageUrls((imageUrls) => [...imageUrls, url]);
         }),
       );
     },
-    [setFileUrls],
+    [setImageUrls],
   );
 
   return (
     <Fragment>
       <header>
-        <h1>Files</h1>
+        <h1>Image Gallery</h1>
       </header>
       <nav>
         <a
@@ -77,16 +77,21 @@ export default function FilesPage({
         <input
           type="file"
           multiple
-          onChange={addFile}
+          onChange={addImage}
+          accept="image/*"
         />
         <ul>
-          {fileUrls.map((url) => (
+          {imageUrls.map((url) => (
             <li key={url}>
               <a
                 href={url}
                 target="_blank"
               >
-                {url}
+                <img
+                  src={url}
+                  alt=""
+                  height="250"
+                />
               </a>
             </li>
           ))}

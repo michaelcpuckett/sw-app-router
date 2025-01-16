@@ -27,10 +27,10 @@ export default function HomePage() {
         <h2>Demos</h2>
         <ul>
           <li>
-            <a href="/notes">Notes</a>
+            <a href="/notes">Markdown Editor</a>
             <ul>
               <li>Saves notes to IndexedDB</li>
-              <li>Dynamic routing to view each Note</li>
+              <li>Dynamic routing to view each note</li>
             </ul>
           </li>
           <li>
@@ -41,10 +41,9 @@ export default function HomePage() {
             </ul>
           </li>
           <li>
-            <a href="/files">File Manager</a>
+            <a href="/gallery">Image Gallery</a>
             <ul>
-              <li>Saves files to browser cache</li>
-              <li>Files can be downloaded</li>
+              <li>Saves image files to browser cache</li>
             </ul>
           </li>
         </ul>

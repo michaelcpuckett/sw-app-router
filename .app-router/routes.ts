@@ -1,9 +1,9 @@
 const Routes = {};
 
       
-            import * as FilesPage from 'app/files/page';
+            import * as GalleryPage from 'app/gallery/page';
 
-            Routes['/files'] = FilesPage;
+            Routes['/gallery'] = GalleryPage;
           
 
             import * as NotesPage from 'app/notes/page';
