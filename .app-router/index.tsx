@@ -4,7 +4,7 @@ import { ExpressWorker } from '@express-worker/app';
 import { PageShell } from 'app-router/PageShell';
 import routesConfig from 'app-router/routes';
 import staticFiles from 'app-router/static.json';
-import { renderToString } from 'react-dom/server';
+import { renderToReadableStream, renderToString } from 'react-dom/server';
 import { version } from '../dist/cache.json';
 import * as NotFoundPageModule from './NotFoundPage';
 
@@ -131,7 +131,7 @@ export default (function useAppRouterArchitecture() {
 
           const jsFileContents = await jsFile.text();
 
-          const renderResult = renderToString(
+          const renderResult = await renderToReadableStream(
             <PageShell
               metadata={metadata}
               initialProps={initialProps}
@@ -142,7 +142,7 @@ export default (function useAppRouterArchitecture() {
             </PageShell>,
           );
 
-          res.send(renderResult);
+          res.wrap(new Response(renderResult));
         } catch (error) {
           console.log(error);
           const notFoundPageStaticProps =
@@ -151,6 +151,7 @@ export default (function useAppRouterArchitecture() {
           const renderResult = renderToString(
             <NotFoundPageModule.default {...notFoundPageStaticProps} />,
           );
+
           res.status(404).send(renderResult);
         }
       });
