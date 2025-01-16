@@ -23,10 +23,12 @@ export interface Metadata {
   description?: string;
 }
 
+export type GetMetadata = ({ params }: { params: Params }) => Promise<Metadata>;
+
 export type PageModule = {
   default: PageComponent;
   getStaticProps: GetStaticProps;
-  metadata: Metadata | (({ params }: { params: Params }) => Promise<Metadata>);
+  metadata: Metadata | GetMetadata;
 };
 
 function convertPath(path: string) {

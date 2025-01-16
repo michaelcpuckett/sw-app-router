@@ -1,4 +1,4 @@
-import { PageModule } from 'app-router/index';
+import { GetMetadata, GetStaticProps } from 'app-router/index';
 import PokeAPI, {
   EvolutionChain,
   PokemonSpecies,
@@ -6,7 +6,7 @@ import PokeAPI, {
 } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 
-export const getStaticProps: PageModule['getStaticProps'] = async function ({
+export const getStaticProps: GetStaticProps = async function ({
   params: { name },
 }) {
   const pokeAPI = new PokeAPI();
@@ -43,9 +43,7 @@ export const getStaticProps: PageModule['getStaticProps'] = async function ({
   };
 };
 
-export const metadata: PageModule['metadata'] = async ({
-  params: { name },
-}) => ({
+export const metadata: GetMetadata = async ({ params: { name } }) => ({
   title: name,
 });
 
