@@ -129,7 +129,7 @@ export async function getStaticProps(params: Params) {
 }
 ```
 
-## Page component
+### Page component
 
 The `default` export should be the Page component. It will receive the props
 defined in `getStaticProps`. It will be wrapped in the `PageShell`.
