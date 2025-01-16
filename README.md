@@ -125,18 +125,6 @@ To add a new page:
 
 4. Run `npm run app-router` to regenerate the routes.
 
-### Metadata
-
-`metadata` is an object that contains information about the page, such as the
-title, description, and other meta tags. You can define `metadata` as follows:
-
-```ts
-export const metadata = {
-  title: 'Page Title',
-  description: 'Page description',
-};
-```
-
 ### `getStaticProps`
 
 `getStaticProps` is a function used to fetch data at render time. It allows you
@@ -145,13 +133,33 @@ component. The path params are passed to this function. You can define
 getStaticProps as follows:
 
 ```ts
-export async function getStaticProps(params: Params) {
-  const data = await fetchData({ id: params.id });
+export async function getStaticProps({ params: { id } }) {
+  const data = await fetchData({ id });
 
   return {
     data,
   };
 }
+```
+
+### Metadata
+
+`metadata` is an object that contains information about the page, such as the
+title and description. You can define `metadata` as follows:
+
+```ts
+export const metadata = {
+  title: 'Page Title',
+  description: 'Page description',
+};
+```
+
+If you need to access the route params, you can export a function instead:
+
+```ts
+export const metadata = ({ params: { id } }) => ({
+  title: 'Note ' + id,
+});
 ```
 
 ### Page component
