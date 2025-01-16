@@ -36,6 +36,10 @@ body {
   white-space: nowrap;
 }
 
+img {
+  max-width: 100%;
+}
+
 #root {
   max-width: 960px;
   margin: 0 auto;
