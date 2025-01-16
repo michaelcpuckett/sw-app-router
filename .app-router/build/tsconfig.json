@@ -14,6 +14,8 @@
     "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
     "isolatedModules": true,
+    "lib": ["ES2020"],
+    "target": "ES2020",
     "paths": {
       "app/*": ["../../src/app/*"],
       "components/*": ["../../src/components/*"],
