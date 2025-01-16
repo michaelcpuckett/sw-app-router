@@ -45,7 +45,7 @@ header,
 nav,
 main {
   display: grid;
-  place-items: start;
+  align-items: start;
 }
 
 table {
@@ -89,6 +89,7 @@ th[scope='col'] {
   cursor: pointer;
   background: ButtonFace;
   color: CanvasText;
+  place-self: start;
 }
 
 .button[disabled] {
