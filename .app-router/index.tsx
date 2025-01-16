@@ -12,7 +12,11 @@ export type PageComponent = React.ComponentType<any>;
 
 export type Params = Record<string, string>;
 
-export type GetStaticProps = (params: Params) => Promise<Record<string, any>>;
+export type GetStaticProps = ({
+  params,
+}: {
+  params: Params;
+}) => Promise<Record<string, any>>;
 
 export interface Metadata {
   title: string;
@@ -22,7 +26,7 @@ export interface Metadata {
 export type PageModule = {
   default: PageComponent;
   getStaticProps: GetStaticProps;
-  metadata: Metadata;
+  metadata: Metadata | (({ params }: { params: Params }) => Promise<Metadata>);
 };
 
 function convertPath(path: string) {
@@ -81,10 +85,9 @@ export default (function useAppRouterArchitecture() {
   })();
 
   (function useAppRouter() {
-    for (const [
-      path,
-      { default: Component, getStaticProps, metadata },
-    ] of Object.entries<PageModule>(routesConfig)) {
+    for (const [path, module] of Object.entries<PageModule>(routesConfig)) {
+      const { default: Component, getStaticProps } = module;
+
       app.get(convertPath(path), async (req, res) => {
         if (navigator.onLine) {
           fetch('/cache.json', {
@@ -106,7 +109,7 @@ export default (function useAppRouterArchitecture() {
         }
 
         try {
-          const initialProps = await getStaticProps(req.params);
+          const initialProps = await getStaticProps({ params: req.params });
           const cache = await caches.open('dist');
           const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
           const cssFileContents = (
@@ -130,6 +133,11 @@ export default (function useAppRouterArchitecture() {
           }
 
           const jsFileContents = await jsFile.text();
+
+          const metadata =
+            typeof module.metadata === 'function'
+              ? await module.metadata({ params: req.params })
+              : module.metadata;
 
           const renderResult = await renderToReadableStream(
             <PageShell

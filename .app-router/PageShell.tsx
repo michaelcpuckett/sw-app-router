@@ -13,11 +13,11 @@ export function PageShell(
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        <title>{props.metadata.title}</title>
         <meta
           httpEquiv="Cache-Control"
           content="no-store"
         />
-        <title>{props.metadata.title}</title>
         {props.metadata.description && (
           <meta
             name="description"

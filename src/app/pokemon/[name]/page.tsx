@@ -1,4 +1,4 @@
-import { GetStaticProps, Metadata } from 'app-router/index';
+import { PageModule } from 'app-router/index';
 import PokeAPI, {
   EvolutionChain,
   PokemonSpecies,
@@ -6,17 +6,14 @@ import PokeAPI, {
 } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 
-export const metadata: Metadata = {
-  title: 'Pokemon',
-};
-
-export const getStaticProps: GetStaticProps = async function (params) {
+export const getStaticProps: PageModule['getStaticProps'] = async function ({
+  params: { name },
+}) {
   const pokeAPI = new PokeAPI();
-  const pokemon = await pokeAPI.getPokemonByName(params.name);
-  const species = await pokeAPI.getPokemonSpeciesByName(params.name);
+  const pokemon = await pokeAPI.getPokemonByName(name);
+  const species = await pokeAPI.getPokemonSpeciesByName(name);
   const evolutionChainResourceUrl = species.evolution_chain.url;
   const evolutionChain = await pokeAPI.getResource(evolutionChainResourceUrl);
-
   const image = pokemon.sprites.other['official-artwork'].front_default;
 
   if (image) {
@@ -24,7 +21,6 @@ export const getStaticProps: GetStaticProps = async function (params) {
     await cache.add(image);
   }
 
-  const name = pokemon.name;
   const types = pokemon.types;
   const number = pokemon.id;
 
@@ -46,6 +42,12 @@ export const getStaticProps: GetStaticProps = async function (params) {
     evolutionChain,
   };
 };
+
+export const metadata: PageModule['metadata'] = async ({
+  params: { name },
+}) => ({
+  title: name,
+});
 
 export default function PokemonSpeciesPage({
   image,
