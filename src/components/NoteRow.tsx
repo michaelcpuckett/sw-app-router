@@ -59,8 +59,9 @@ export default function NoteRow({
           className="button"
           onClick={handleMoveUp}
           disabled={!prevNote}
+          aria-label="Move Up"
         >
-          Move Up
+          ▲
         </button>
       </td>
       <td>
@@ -68,16 +69,18 @@ export default function NoteRow({
           className="button"
           onClick={handleMoveDown}
           disabled={!nextNote}
+          aria-label="Move Down"
         >
-          Move Down
+          ▼
         </button>
       </td>
       <td>
         <button
           className="button"
           onClick={handleDelete}
+          aria-label="Delete"
         >
-          Delete
+          &#10005;
         </button>
       </td>
     </tr>

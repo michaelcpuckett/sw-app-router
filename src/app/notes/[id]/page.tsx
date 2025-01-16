@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'The note detail page.',
 };
 
-export const getStaticProps: GetStaticProps = async function (params) {
+export const getStaticProps: GetStaticProps = async function ({ params }) {
   const notes = await getNotes();
   const note = notes.find(({ id }) => id === params.id);
 
