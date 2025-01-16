@@ -1,4 +1,4 @@
-const Routes = {};
+const Routes: Record<string, any> = {};
 
       
             import * as GalleryPage from 'app/gallery/page';

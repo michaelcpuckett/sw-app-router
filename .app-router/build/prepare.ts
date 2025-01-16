@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 
 function getAppRoutes() {
-  const routes = {};
-  const appDir = path.resolve(__dirname, '../', 'src', 'app');
+  const routes: Record<string, any> = {};
+  const appDir = path.resolve(__dirname, '../../src/app');
 
   function traverseDirectory(currentDir: string) {
     const files = fs.readdirSync(currentDir);
@@ -36,11 +36,11 @@ const toCamelCase = (string: string) => {
 async function writeAppRoutesToFile() {
   try {
     const routes = getAppRoutes();
-    const outputPath = path.resolve(__dirname, 'routes.ts');
+    const outputPath = path.resolve(__dirname, '../', 'routes.ts');
 
     fs.writeFileSync(
       outputPath,
-      `const Routes = {};
+      `const Routes: Record<string, any> = {};
 
       ${Object.keys(routes)
         .map((route) => {
@@ -70,15 +70,17 @@ async function writeAppRoutesToFile() {
 writeAppRoutesToFile();
 
 function getStaticFiles() {
-  return fs.readdirSync(path.resolve(__dirname, '../', 'dist')).map((file) => {
-    return '/' + file;
-  });
+  return fs
+    .readdirSync(path.resolve(__dirname, '../../', 'dist'))
+    .map((file) => {
+      return '/' + file;
+    });
 }
 
 function writeStaticFilesToFile() {
   try {
     const staticFiles = getStaticFiles();
-    const outputPath = path.resolve(__dirname, 'static.json');
+    const outputPath = path.resolve(__dirname, '../', 'static.json');
 
     fs.writeFileSync(outputPath, JSON.stringify(staticFiles, null, 2));
 

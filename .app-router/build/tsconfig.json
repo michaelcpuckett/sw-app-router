@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noLib": false,
+    "outDir": "../dist",
+    "types": ["node"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": false,
+    "isolatedModules": true,
+    "paths": {
+      "app/*": ["../../src/app/*"],
+      "components/*": ["../../src/components/*"],
+      "sw/*": ["../../src/sw/*"],
+      "utils/*": ["../../src/utils/*"],
+      "app-router/*": ["../../.app-router/*"]
+    }
+  },
+  "include": ["./prepare.ts"]
+}

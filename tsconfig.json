@@ -34,5 +34,6 @@
     "./src/utils/*",
     "./src/sw/*",
     ".app-router/*"
-  ]
+  ],
+  "exclude": ["./app-router/build/*"]
 }
