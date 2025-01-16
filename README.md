@@ -1,7 +1,8 @@
 # Service Worker with App Router Starter
 
 This project demonstrates how to serve dynamic HTML with React inside a service
-worker. The developer experience is similar to that of Next.js.
+worker. The user experience is similar to a multi-page app (MPA) and the
+developer experience is similar to Next.js.
 
 ## Features
 

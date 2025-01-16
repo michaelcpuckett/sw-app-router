@@ -19,6 +19,11 @@ export default function HomePage() {
         </a>
       </header>
       <main>
+        <h2>Overview</h2>
+        <p>
+          This is a starter project for building a multi-page web app inside a
+          service worker.
+        </p>
         <h2>Demos</h2>
         <ul>
           <li>

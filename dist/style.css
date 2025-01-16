@@ -5,7 +5,7 @@
 }
 
 :root {
-  font-size: calc((14 / 16) * 100%);
+  font-size: calc((18 / 16) * 100%);
 }
 
 body {
@@ -38,6 +38,10 @@ body {
 
 img {
   max-width: 100%;
+}
+
+p {
+  margin: 0;
 }
 
 #root {
