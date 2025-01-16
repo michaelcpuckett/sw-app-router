@@ -4,12 +4,6 @@ import { createElement } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-window.addEventListener('pageshow', function (event: PageTransitionEvent) {
-  if (event.persisted) {
-    window.location.reload();
-  }
-});
-
 function convertPath(path: string) {
   return path.replace(/\[([^\]]+)\]/g, ':$1');
 }
