@@ -18,8 +18,9 @@ interface PokemonPageProps {
 export const getStaticProps: GetStaticProps = async function ({
   params: { name },
 }) {
-  const pokemonDataCache = await caches.open('pokemon-data');
-  const cachedPokemonData = await pokemonDataCache.match(name);
+  // Data doesn't change. Check cache first.
+  const pagePropsCache = await caches.open('page-props');
+  const cachedPokemonData = await pagePropsCache.match(name);
 
   if (cachedPokemonData) {
     return {
@@ -27,6 +28,7 @@ export const getStaticProps: GetStaticProps = async function ({
     };
   }
 
+  // Fetch data if not in cache.
   const pokeAPI = new PokeAPI();
   const [pokemon, species] = await Promise.all([
     pokeAPI.getPokemonByName(name),
@@ -37,6 +39,7 @@ export const getStaticProps: GetStaticProps = async function ({
   const image = pokemon.sprites.other['official-artwork'].front_default || '';
 
   if (image) {
+    // Pre-cache image.
     const pokemonImageCache = await caches.open('pokemon-images');
     await pokemonImageCache.add(image);
   }
@@ -60,7 +63,8 @@ export const getStaticProps: GetStaticProps = async function ({
     evolutionChain,
   };
 
-  await pokemonDataCache.put(
+  // Save to cache
+  await pagePropsCache.put(
     name,
     new Response(JSON.stringify(props), {
       headers: {

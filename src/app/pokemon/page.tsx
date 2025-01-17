@@ -7,12 +7,34 @@ export const metadata: Metadata = {
 };
 
 export const getStaticProps: GetStaticProps = async function () {
+  // Data doesn't change. Check cache first.
+  const pagePropsCache = await caches.open('page-props');
+  const cachedPokemonData = await pagePropsCache.match('/');
+
+  if (cachedPokemonData) {
+    return {
+      props: await cachedPokemonData.json(),
+    };
+  }
+
+  // Fetch data if not in cache.
   const pokeAPI = new PokeAPI();
+  const props = {
+    speciesList: await pokeAPI.getPokemonSpeciesList(),
+  };
+
+  // Save to cache.
+  await pagePropsCache.put(
+    '/',
+    new Response(JSON.stringify(props), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }),
+  );
 
   return {
-    props: {
-      speciesList: await pokeAPI.getPokemonSpeciesList(),
-    },
+    props,
   };
 };
 
