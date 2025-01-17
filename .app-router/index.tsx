@@ -4,8 +4,8 @@ import { ExpressWorker } from '@express-worker/app';
 import { PageShell } from 'app-router/PageShell';
 import routesConfig from 'app-router/routes';
 import staticFiles from 'app-router/static.json';
+import { version } from 'public/cache.json';
 import { renderToString } from 'react-dom/server';
-import { version } from '../dist/cache.json';
 import NotFoundPageModule, {
   getStaticProps as getNotFoundPageModuleStaticProps,
 } from './NotFoundPage';
@@ -51,7 +51,7 @@ export default (function useAppRouterArchitecture() {
         const urlsToCache = staticFiles.map((url) => {
           return new Request(new URL(url, self.location.origin).href);
         });
-        const cache = await caches.open('dist');
+        const cache = await caches.open('public');
         await cache.addAll(urlsToCache);
       })(),
     );
@@ -114,7 +114,7 @@ export default (function useAppRouterArchitecture() {
 
         try {
           const staticProps = await getStaticProps({ params: req.params });
-          const cache = await caches.open('dist');
+          const cache = await caches.open('public');
           const cssUrls = staticFiles.filter((url) => url.endsWith('.css'));
           const cssFileContents = (
             await Promise.all(

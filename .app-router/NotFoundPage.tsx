@@ -1,7 +1,7 @@
 import { PageShell } from './PageShell';
 
 export async function getStaticProps() {
-  const cache = await caches.open('dist');
+  const cache = await caches.open('public');
   const cssFiles = (await cache.keys()).filter((key) =>
     key.url.endsWith('.css'),
   );

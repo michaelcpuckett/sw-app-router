@@ -71,7 +71,7 @@ writeAppRoutesToFile();
 
 function getStaticFiles() {
   return fs
-    .readdirSync(path.resolve(__dirname, '../../', 'dist'))
+    .readdirSync(path.resolve(__dirname, '../../', 'public'))
     .map((file) => {
       return '/' + file;
     });

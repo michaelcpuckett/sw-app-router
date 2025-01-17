@@ -24,7 +24,7 @@ React-DOM/Client.
 
 ### Static File Handling
 
-Static files in the `dist` directory are cached and served by the service
+Static files in the `public` directory are cached and served by the service
 worker.
 
 ## Installation
@@ -88,7 +88,7 @@ into the HTML.
 
 The `app-router` script generates the route and static files configuration
 required by the service worker. It scans the app directory for pages and the
-dist directory for static files.
+public directory for static files.
 
 ## Usage
 
@@ -162,14 +162,14 @@ Use `npm run serve` and `npm run dev` during development.
 For easiest debugging, in the Web Inspector, under the Application tab, under
 Service Workers, select the checkbox for "Update on reload".
 
-Styles can be edited directly in `dist/styles.css`.
+Styles can be edited directly in `public/styles.css`.
 
 ## Production Builds
 
 Use `npm run build` to generate a production build.
 
 The built-in strategy for invalidating the old cache and serving the updated
-content is through incrementing the version in `dist/cache.json`.
+content is through incrementing the version in `public/cache.json`.
 
 ## Benefits
 

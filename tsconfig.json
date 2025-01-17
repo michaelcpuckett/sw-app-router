@@ -24,7 +24,8 @@
       "components/*": ["./src/components/*"],
       "sw/*": ["./src/sw/*"],
       "utils/*": ["./src/utils/*"],
-      "app-router/*": ["./.app-router/*"]
+      "app-router/*": ["./.app-router/*"],
+      "public/*": ["./public/*"]
     }
   },
   "include": [

@@ -7,21 +7,21 @@
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
     "build": "cross-env NODE_ENV=production parcel build",
     "dev": "parcel watch",
-    "serve": "http-server dist -p 8080",
+    "serve": "http-server public -p 8080",
     "app-router": "tsx ./.app-router/build/prepare.ts"
   },
-  "app": "dist/app.js",
-  "client": "dist/client.js",
+  "app": "public/app.js",
+  "client": "public/client.js",
   "targets": {
     "app": {
       "source": "./.app-router/index.tsx",
-      "distDir": "./dist",
+      "distDir": "./public",
       "context": "service-worker",
       "sourceMap": false
     },
     "client": {
       "source": "./.app-router/client.tsx",
-      "distDir": "./dist",
+      "distDir": "./public",
       "context": "browser",
       "sourceMap": false
     }
