@@ -4,9 +4,11 @@ import { ExpressWorker } from '@express-worker/app';
 import { PageShell } from 'app-router/PageShell';
 import routesConfig from 'app-router/routes';
 import staticFiles from 'app-router/static.json';
-import { renderToReadableStream, renderToString } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { version } from '../dist/cache.json';
-import * as NotFoundPageModule from './NotFoundPage';
+import NotFoundPageModule, {
+  getStaticProps as getNotFoundPageModuleStaticProps,
+} from './NotFoundPage';
 
 export type PageComponent = React.ComponentType<any>;
 
@@ -75,10 +77,10 @@ export default (function useAppRouterArchitecture() {
         res.wrap(cachedResponse);
       } else {
         const notFoundPageStaticProps =
-          await NotFoundPageModule.getStaticProps();
+          await getNotFoundPageModuleStaticProps();
 
         const renderResult = renderToString(
-          <NotFoundPageModule.default {...notFoundPageStaticProps.props} />,
+          <NotFoundPageModule {...notFoundPageStaticProps.props} />,
         );
 
         res.status(404).send(renderResult);
@@ -152,35 +154,17 @@ export default (function useAppRouterArchitecture() {
             </PageShell>
           );
 
-          // Streaming responses not supported in Safari.
-          const isSafari = /^((?!chrome|android).)*safari/i.test(
-            navigator.userAgent,
-          );
+          const renderResult = renderToString(FullPageComponent);
 
-          if (isSafari) {
-            const renderResult = renderToString(FullPageComponent);
-
-            res.send(renderResult);
-          } else {
-            const streamingResult =
-              await renderToReadableStream(FullPageComponent);
-
-            res.wrap(
-              new Response(streamingResult, {
-                headers: {
-                  'Content-Type': 'text/html',
-                },
-              }),
-            );
-          }
+          res.send(renderResult);
         } catch (error) {
           console.log(error);
 
           const notFoundPageStaticProps =
-            await NotFoundPageModule.getStaticProps();
+            await getNotFoundPageModuleStaticProps();
 
           const renderResult = renderToString(
-            <NotFoundPageModule.default {...notFoundPageStaticProps.props} />,
+            <NotFoundPageModule {...notFoundPageStaticProps.props} />,
           );
 
           res.status(404).send(renderResult);
