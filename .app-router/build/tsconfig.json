@@ -24,5 +24,5 @@
       "app-router/*": ["../../.app-router/*"]
     }
   },
-  "include": ["./prepare.ts"]
+  "include": ["index.ts"]
 }

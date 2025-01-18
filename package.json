@@ -5,10 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
-    "build": "cross-env NODE_ENV=production parcel build",
-    "dev": "parcel watch",
-    "serve": "http-server public -p 8080",
-    "app-router": "tsx ./.app-router/build/prepare.ts"
+    "dev": "tsx ./.app-router/build/watch.ts",
+    "build": "tsx ./.app-router/build/index.ts"
   },
   "app": "public/app.js",
   "client": "public/client.js",

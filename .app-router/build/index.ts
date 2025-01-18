@@ -1,8 +1,9 @@
+import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
 function getAppRoutes() {
-  const routes: Record<string, any> = {};
+  const routes: string[] = [];
   const appDir = path.resolve(__dirname, '../../src/app');
 
   function traverseDirectory(currentDir: string) {
@@ -18,9 +19,7 @@ function getAppRoutes() {
           .relative(appDir, filePath)
           .replace(/\\/g, '/')
           .replace(/\.tsx$/, '');
-        const pageModule = require(filePath);
-
-        routes[`/${pageName}`] = pageModule;
+        routes.push(`/${pageName}`);
       }
     });
   }
@@ -42,7 +41,7 @@ async function writeAppRoutesToFile() {
       outputPath,
       `const Routes: Record<string, any> = {};
 
-      ${Object.keys(routes)
+      ${routes
         .map((route) => {
           const routeSlug = toCamelCase(
             route.replace(/\//g, '-').replace(/[\[\]]/g, ''),
@@ -67,8 +66,6 @@ async function writeAppRoutesToFile() {
   }
 }
 
-writeAppRoutesToFile();
-
 function getStaticFiles() {
   return fs
     .readdirSync(path.resolve(__dirname, '../../', 'public'))
@@ -90,4 +87,17 @@ function writeStaticFilesToFile() {
   }
 }
 
-writeStaticFilesToFile();
+try {
+  writeAppRoutesToFile();
+  writeStaticFilesToFile();
+  exec(`cross-env NODE_ENV=production parcel build`, (error: unknown) => {
+    if (error) {
+      console.error(`❌ Error building project: ${error}`);
+      return;
+    }
+
+    console.log(`✅ Project built successfully!`);
+  });
+} catch (error) {
+  console.error('❌ Error building project:', error);
+}
