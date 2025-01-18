@@ -1,7 +1,7 @@
 import { GetStaticProps, Metadata } from 'app-router/index';
 import NoteRow from 'components/NoteRow';
 import { LexoRank } from 'lexorank';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { getNotes, Note, setNotesDb } from 'utils/db';
 import { v4 as uuid } from 'uuid';
 
@@ -36,8 +36,11 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
     });
 
     setNotes(updatedNotes);
-    setNotesDb(updatedNotes);
   }, [notes, setNotes]);
+
+  useEffect(() => {
+    setNotesDb(notes);
+  }, [notes]);
 
   const orderedNotes = notes.sort((a, b) => {
     return LexoRank.parse(a.position).compareTo(LexoRank.parse(b.position));
