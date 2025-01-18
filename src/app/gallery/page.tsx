@@ -46,7 +46,6 @@ export default function ImageGalleryPage({
               'Content-Type': file.type,
               'Content-Length': contentLength.toString(),
               'Last-Modified': new Date().toUTCString(),
-              'Content-Disposition': 'attachment',
             },
           });
 
