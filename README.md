@@ -1,7 +1,8 @@
 # Service Worker with App Router Starter
 
-This project is a multi-page web application (MPA) that runs entirely in a
-service worker context, demonstrating how to serve dynamically generated HTML.
+This is a boilerplate for a multi-page web application (MPA) that runs entirely
+in a service worker context, demonstrating how to serve dynamically generated
+HTML.
 
 ## Features
 
@@ -76,13 +77,13 @@ framework.
 
 ### `client.tsx`
 
-This file hydrates the React components on the client side using
+This file hydrates the React components on the rendered pages using
 `react-dom/client`.
 
 ### `PageShell.tsx`
 
-This component wraps the rendered pages, injecting metadata and initial data
-into the HTML.
+This component wraps Page Components, injecting metadata and initial data into
+the HTML.
 
 ### `prepare.ts`
 
