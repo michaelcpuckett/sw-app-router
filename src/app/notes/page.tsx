@@ -2,7 +2,7 @@ import { GetStaticProps, Metadata } from 'app-router/index';
 import NoteRow from 'components/NoteRow';
 import { LexoRank } from 'lexorank';
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { getNotes, Note, setNotesDb } from 'utils/db';
+import { getNotes, Note, setNotes as setNotesDb } from 'utils/db';
 import { v4 as uuid } from 'uuid';
 
 export const metadata: Metadata = {

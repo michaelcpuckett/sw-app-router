@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { getNotes, Note, setNotesDb } from 'utils/db';
+import { getNote, Note, setNote as setNoteDb } from 'utils/db';
 
 export const metadata: Metadata = {
   title: 'Note Detail',
@@ -15,8 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const getStaticProps: GetStaticProps = async function ({ params }) {
-  const notes = await getNotes();
-  const note = notes.find(({ id }) => id === params.id);
+  const note = await getNote(params.id);
 
   if (!note) {
     throw new Error('Note not found.');
@@ -44,11 +43,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
 
   useEffect(() => {
     (async () => {
-      const updatedNotes = Array.from(await getNotes());
-      const index = updatedNotes.findIndex(({ id }) => id === note.id);
-      updatedNotes[index] = note;
-
-      setNotesDb(updatedNotes);
+      setNoteDb(note);
     })();
   }, [note]);
 

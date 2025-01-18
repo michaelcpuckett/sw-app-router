@@ -4,7 +4,7 @@ export interface Note {
   text: string;
 }
 
-export function openNotesDB(): Promise<IDBDatabase> {
+export function openNotes(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('notesDB', 1);
 
@@ -45,8 +45,8 @@ export function openNotesDB(): Promise<IDBDatabase> {
   });
 }
 
-export async function setNotesDb(value: Note[]) {
-  const db = await openNotesDB();
+export async function setNotes(value: Note[]) {
+  const db = await openNotes();
   const transaction = db.transaction('notes', 'readwrite');
   const store = transaction.objectStore('notes');
 
@@ -58,7 +58,7 @@ export async function setNotesDb(value: Note[]) {
 }
 
 export async function deleteNote(note: Note): Promise<void> {
-  const db = await openNotesDB();
+  const db = await openNotes();
   const transaction = db.transaction('notes', 'readwrite');
   const store = transaction.objectStore('notes');
   const request = store.delete(note.id);
@@ -70,7 +70,7 @@ export async function deleteNote(note: Note): Promise<void> {
 }
 
 export async function getNotes(): Promise<Note[]> {
-  const db = await openNotesDB();
+  const db = await openNotes();
   const transaction = db.transaction('notes', 'readonly');
   const store = transaction.objectStore('notes');
   const request = store.getAll();
@@ -81,11 +81,36 @@ export async function getNotes(): Promise<Note[]> {
   });
 }
 
+export async function getNote(id: string): Promise<Note | undefined> {
+  const db = await openNotes();
+  const transaction = db.transaction('notes', 'readonly');
+  const store = transaction.objectStore('notes');
+  const request = store.get(id);
+
+  return new Promise((resolve, reject) => {
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+export async function setNote(note: Note): Promise<void> {
+  const db = await openNotes();
+  const transaction = db.transaction('notes', 'readwrite');
+  const store = transaction.objectStore('notes');
+
+  store.put(note);
+
+  return new Promise((resolve, reject) => {
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
+
 export async function reorderNote(
   noteToReorder: Note,
   noteToFlip: Note,
 ): Promise<void> {
-  const db = await openNotesDB();
+  const db = await openNotes();
   const tx = db.transaction('notes', 'readwrite');
   const store = tx.objectStore('notes');
   const { position: oldPosition } = noteToReorder;
