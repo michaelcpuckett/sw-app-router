@@ -1,7 +1,5 @@
 node_modules/
 .firebase
 .parcel-cache
-public/app.js
-public/app.js.map
-public/client.js
-public/client.js.map
+public/hydration.js
+public/service-worker.js

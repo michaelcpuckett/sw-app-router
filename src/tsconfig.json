@@ -20,21 +20,11 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "paths": {
-      "app/*": ["./src/app/*"],
-      "components/*": ["./src/components/*"],
-      "sw/*": ["./src/sw/*"],
-      "utils/*": ["./src/utils/*"],
-      "app-router/*": ["./.app-router/*"],
-      "public/*": ["./public/*"]
+      "app/*": ["./app/*"],
+      "components/*": ["./components/*"],
+      "utils/*": ["./utils/*"],
+      "@express-worker/router*": ["../@express-worker/router/*"]
     }
   },
-  "include": [
-    "./src/app/**/*",
-    "./src/client/*",
-    "./src/components/*",
-    "./src/utils/*",
-    "./src/sw/*",
-    ".app-router/*"
-  ],
-  "exclude": ["./app-router/build/*"]
+  "include": ["./**/*"]
 }

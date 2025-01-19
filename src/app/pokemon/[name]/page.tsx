@@ -1,4 +1,4 @@
-import { GetMetadata, GetStaticProps } from 'app-router/index';
+import { GetMetadata, GetStaticProps } from '@express-worker/router/types';
 import PokeAPI, {
   Chain,
   EvolutionChain,

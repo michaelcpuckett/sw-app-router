@@ -1,4 +1,4 @@
-import { GetStaticProps, Metadata } from 'app-router/index';
+import { GetStaticProps, Metadata } from '@express-worker/router/types';
 import PokeAPI, { NamedAPIResourceList } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 

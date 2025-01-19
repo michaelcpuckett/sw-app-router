@@ -1,4 +1,4 @@
-import { GetStaticProps, Metadata } from 'app-router/index';
+import { GetStaticProps, Metadata } from '@express-worker/router/types';
 import { ChangeEventHandler, Fragment, useCallback, useState } from 'react';
 
 export const metadata: Metadata = {
