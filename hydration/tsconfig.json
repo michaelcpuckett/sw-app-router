@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "commonjs",
+    "module": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "sourceMap": true,
     "declaration": true,
     "noImplicitAny": true,
