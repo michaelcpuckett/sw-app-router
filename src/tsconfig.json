@@ -21,8 +21,7 @@
     "paths": {
       "app/*": ["./app/*"],
       "components/*": ["./components/*"],
-      "utils/*": ["./utils/*"],
-      "@express-worker/router*": ["../@express-worker/router/*"]
+      "utils/*": ["./utils/*"]
     }
   },
   "include": ["./**/*"]

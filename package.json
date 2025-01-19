@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Serve dynamic HTML with React inside a Service Worker",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
     "dev": "watch",
     "build": "build"
@@ -11,7 +10,7 @@
   "author": "Michael Puckett <michael@puckett.contact>",
   "license": "MIT",
   "dependencies": {
-    "@express-worker/router": "^1.2.0",
+    "@express-worker/router": "^1.2.11",
     "lexorank": "^1.0.5",
     "marked": "^15.0.6",
     "pokedex-promise-v2": "^4.2.1",
@@ -21,7 +20,6 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/marked": "^6.0.0",
     "@types/node": "^22.10.7",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

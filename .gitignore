@@ -1,6 +1,5 @@
 node_modules/
 .firebase
-.parcel-cache
 public/hydration.js
 public/service-worker.js
 public/cache.json
