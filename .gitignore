@@ -3,3 +3,5 @@ node_modules/
 .parcel-cache
 public/hydration.js
 public/service-worker.js
+public/cache.json
+.express-worker-router/

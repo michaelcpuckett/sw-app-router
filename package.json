@@ -11,7 +11,7 @@
   "author": "Michael Puckett <michael@puckett.contact>",
   "license": "MIT",
   "dependencies": {
-    "@express-worker/router": "^1.1.6",
+    "@express-worker/router": "^1.1.8",
     "lexorank": "^1.0.5",
     "marked": "^15.0.6",
     "pokedex-promise-v2": "^4.2.1",
