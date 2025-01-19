@@ -11,7 +11,7 @@
       margin: 0;
     }
 
-    [role='status'] {
+    #loading {
       display: flex;
       height: 100vh;
       height: 100svh;
@@ -24,19 +24,7 @@
       <h1>JavaScript is required.</h1>
     </div>
   </noscript>
-  <div
-    role="status"
-    id="loading"
-  >
-    Loading...
-  </div>
-  <div
-    hidden
-    id="error"
-  >
-    <h1>Something went wrong.</h1>
-    <p>Please try again later.</p>
-  </div>
+  <div id="loading">Loading...</div>
   <script>
     window.navigator.serviceWorker
       .register('/service-worker.js')
@@ -53,7 +41,6 @@
           throw new Error('Service worker not found.');
         }
 
-        // Wait for service worker to activate.
         await new Promise((resolve) => {
           if (serviceWorker.state === 'activated') {
             resolve();
