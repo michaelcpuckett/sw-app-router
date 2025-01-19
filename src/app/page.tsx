@@ -1,4 +1,4 @@
-import { GetStaticProps, Metadata } from '@express-worker/router/types';
+import { GetStaticProps, Metadata } from '@express-worker/router';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {

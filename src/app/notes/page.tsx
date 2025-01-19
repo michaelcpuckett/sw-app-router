@@ -1,4 +1,4 @@
-import { GetStaticProps, Metadata } from '@express-worker/router/types';
+import { GetStaticProps, Metadata } from '@express-worker/router';
 import NoteRow from 'components/NoteRow';
 import { LexoRank } from 'lexorank';
 import { Fragment, useCallback, useEffect, useState } from 'react';

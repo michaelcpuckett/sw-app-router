@@ -1,11 +1,11 @@
-import { GetStaticProps, Metadata } from '@express-worker/router/types';
+import { GetStaticProps, Metadata } from '@express-worker/router';
 import { ChangeEventHandler, Fragment, useCallback, useState } from 'react';
 
 export const metadata: Metadata = {
   title: 'Image Gallery',
 };
 
-export const getStaticProps: GetStaticProps = async function (params) {
+export const getStaticProps: GetStaticProps = async function () {
   const cache = await caches.open('uploads');
   const keys = await cache.keys();
 
