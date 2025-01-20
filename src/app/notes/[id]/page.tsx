@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { getNote, Note, setNote as setNoteDb } from 'utils/db';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Note Detail',
@@ -54,7 +55,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
       </header>
       <nav>
         <a
-          className="button"
+          className={styles.button}
           href="/notes"
         >
           Back

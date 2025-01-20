@@ -1,6 +1,7 @@
 node_modules/
-.firebase
-public/hydration.js
-public/service-worker.js
+.firebase/
 public/cache.json
+public/hydration.js
+public/install.js
+public/service-worker.js
 .express-worker-router/

@@ -4,6 +4,7 @@ import { LexoRank } from 'lexorank';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { getNotes, Note, setNotes as setNotesDb } from 'utils/db';
 import { v4 as uuid } from 'uuid';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Notes',
@@ -54,7 +55,7 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
       </header>
       <nav>
         <a
-          className="button"
+          className={styles.button}
           href="/"
         >
           Back
@@ -63,7 +64,7 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
       <br />
       <main>
         <button
-          className="button"
+          className={styles.button}
           onClick={addNote}
         >
           Add Note

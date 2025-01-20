@@ -4,13 +4,14 @@
   "description": "Serve dynamic HTML with React inside a Service Worker",
   "scripts": {
     "format": "prettier --config .prettierrc \"**/*.{ts,tsx}\" --write",
-    "build": "build",
+    "build": "ewr-build",
+    "watch": "ewr-watch",
     "serve": "http-server -p 8080"
   },
   "author": "Michael Puckett <michael@puckett.contact>",
   "license": "MIT",
   "dependencies": {
-    "@express-worker/router": "^1.2.19",
+    "@express-worker/router": "^1.5.1",
     "lexorank": "^1.0.5",
     "marked": "^15.0.6",
     "pokedex-promise-v2": "^4.2.1",

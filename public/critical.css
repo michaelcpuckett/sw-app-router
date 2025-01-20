@@ -87,23 +87,6 @@ th[scope='col'] {
   text-align: start;
 }
 
-.button {
-  border: 1px solid;
-  border-radius: 4px;
-  padding: 4px 12px;
-  margin: 0;
-  font: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  background: deepskyblue;
-  color: black;
-  place-self: start;
-}
-
-.button[disabled] {
-  cursor: not-allowed;
-}
-
 textarea {
   width: 100%;
   min-height: 5lh;

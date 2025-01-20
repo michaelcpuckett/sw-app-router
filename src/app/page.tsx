@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <Fragment>
       <header>
-        <h1>Service Worker with App Router Starter</h1>
+        <h1>A Service Worker with App Router Starter</h1>
         <a
           className="button"
           href="https://github.com/michaelcpuckett/sw-app-router-starter"
