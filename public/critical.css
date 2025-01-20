@@ -19,12 +19,16 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 :focus {
   outline: 0;
 }
 
 :focus-visible {
-  outline: 2px solid;
+  outline: 2px solid CanvasText;
 }
 
 .visually-hidden {
@@ -36,17 +40,13 @@ body {
   white-space: nowrap;
 }
 
-img {
-  max-width: 100%;
-}
-
-p {
-  margin: 0;
-}
-
 #root {
   max-width: 960px;
   margin: 0 auto;
+}
+
+img {
+  max-width: 100%;
 }
 
 header,
@@ -56,42 +56,19 @@ main {
   align-items: start;
 }
 
-table {
-  display: grid;
-  grid-template-columns: minmax(0px, 1fr) repeat(4, auto);
-  width: 100%;
+.button {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin: 0;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background: deepskyblue;
+  color: Canvas;
+  place-self: start;
 }
 
-tbody,
-tr {
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-  column-gap: 24px;
-  align-items: center;
-}
-
-tr {
-  padding-bottom: 12px;
-  padding-top: 12px;
-  border-bottom: 1px solid;
-}
-
-tr form,
-tr p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-th[scope='col'] {
-  text-align: start;
-}
-
-textarea {
-  width: 100%;
-  min-height: 5lh;
-}
-
-@view-transition {
-  navigation: auto;
+.button[disabled] {
+  cursor: not-allowed;
 }

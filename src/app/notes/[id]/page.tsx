@@ -55,7 +55,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
       </header>
       <nav>
         <a
-          className={styles.button}
+          className="button"
           href="/notes"
         >
           Back
@@ -64,6 +64,7 @@ export default function NoteDetailPage({ initialNote }: { initialNote: Note }) {
       <br />
       <main>
         <textarea
+          className={styles.textarea}
           defaultValue={note.text}
           onInput={handleInput}
         />

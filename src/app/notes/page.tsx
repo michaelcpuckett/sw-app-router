@@ -55,7 +55,7 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
       </header>
       <nav>
         <a
-          className={styles.button}
+          className="button"
           href="/"
         >
           Back
@@ -64,12 +64,12 @@ export default function NotesPage({ initialNotes }: { initialNotes: Note[] }) {
       <br />
       <main>
         <button
-          className={styles.button}
+          className="button"
           onClick={addNote}
         >
           Add Note
         </button>
-        <table>
+        <table className={styles.table}>
           <tbody>
             {orderedNotes.map((note, index) => (
               <NoteRow
