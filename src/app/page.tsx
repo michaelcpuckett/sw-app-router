@@ -1,5 +1,6 @@
 import { GetStaticProps, Metadata } from '@express-worker/router';
 import { Fragment } from 'react';
+import style from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -15,9 +16,9 @@ export default function HomePage() {
   return (
     <Fragment>
       <header>
-        <h1>A Service Worker with App Router Starter</h1>
+        <h1>Service Worker with App Router Starter</h1>
         <a
-          className="button"
+          className={style.button}
           href="https://github.com/michaelcpuckett/sw-app-router-starter"
         >
           GitHub
