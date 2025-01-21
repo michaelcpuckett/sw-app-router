@@ -243,6 +243,10 @@ export default function PokemonSpeciesPage({
         <img
           src={image}
           alt={name}
+          style={{
+            maxHeight: '33vh',
+            placeSelf: 'center',
+          }}
         />
         <h2
           style={{
