@@ -22,7 +22,7 @@
     "paths": {
       "*": ["*", "./*/"]
     },
-    "types": ["../module.d.ts"]
+    "types": ["../ewr-env.d.ts"]
   },
   "include": ["./**/*"]
 }
