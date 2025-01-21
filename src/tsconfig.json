@@ -18,10 +18,9 @@
     "useDefineForClassFields": false,
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
-      "app/*": ["./app/*"],
-      "components/*": ["./components/*"],
-      "utils/*": ["./utils/*"]
+      "*": ["*", "./*/"]
     }
   },
   "include": ["./**/*"]

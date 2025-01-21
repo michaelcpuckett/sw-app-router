@@ -1,6 +1,8 @@
 import { GetMetadata, GetStaticProps } from '@express-worker/router';
 import PokeAPI, { Chain, EvolutionChain } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
+import { toTitleCase } from 'utils/toTitleCase';
+import styles from './page.module.css';
 
 interface PokemonPageProps {
   image: string;
@@ -72,10 +74,10 @@ export const getStaticProps: GetStaticProps = async function ({
 
   const props: PokemonPageProps = {
     image,
-    previousPokemon: previousPokemon?.name,
-    nextPokemon: nextPokemon?.name,
+    previousPokemon: previousPokemon?.name ?? '',
+    nextPokemon: nextPokemon?.name ?? '',
     types,
-    name,
+    name: toTitleCase(name),
     evolutionChain,
   };
 
@@ -87,7 +89,7 @@ export const getStaticProps: GetStaticProps = async function ({
 };
 
 export const metadata: GetMetadata = async ({ params: { name } }) => ({
-  title: name,
+  title: toTitleCase(name),
 });
 
 export default function PokemonSpeciesPage({
@@ -102,33 +104,16 @@ export default function PokemonSpeciesPage({
     return (
       <li
         key={chain.species.name}
-        style={{
-          margin: '0.5em 0',
-          flexWrap: 'wrap',
-          display: 'flex',
-          gap: '1em',
-          padding: 0,
-        }}
+        className={styles.evolutionChainItem}
       >
         <a
           className="button"
-          style={{
-            textTransform: 'capitalize',
-          }}
           href={'/pokemon/' + chain.species.name}
         >
-          {chain.species.name}
+          {toTitleCase(chain.species.name)}
         </a>
         {chain.evolves_to.length > 0 && (
-          <ul
-            style={{
-              display: 'flex',
-              gap: '1em',
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
+          <ul className={styles.evolutionChainSublist}>
             {chain.evolves_to.map((evolution) =>
               renderEvolutionChain(evolution),
             )}
@@ -140,14 +125,7 @@ export default function PokemonSpeciesPage({
 
   return (
     <Fragment>
-      <nav
-        style={{
-          placeSelf: 'center',
-          margin: '1em 0',
-          display: 'flex',
-          padding: '0 1em',
-        }}
-      >
+      <nav className={styles.nav}>
         <a
           href="/pokemon"
           className="button"
@@ -155,69 +133,28 @@ export default function PokemonSpeciesPage({
           Back
         </a>
       </nav>
-      <nav
-        style={{
-          placeSelf: 'center',
-          margin: '2em 0',
-          flexWrap: 'wrap',
-          display: 'flex',
-          gap: '1em',
-          padding: '0 1em',
-        }}
-      >
+      <nav className={styles.breadcrumb}>
         {previousPokemon && (
           <a
             className="button"
-            style={{
-              textTransform: 'capitalize',
-            }}
             href={'/pokemon/' + previousPokemon}
           >
-            ← {previousPokemon}
+            ← {toTitleCase(previousPokemon)}
           </a>
         )}
         {nextPokemon && (
           <a
             className="button"
-            style={{
-              textTransform: 'capitalize',
-            }}
             href={'/pokemon/' + nextPokemon}
           >
-            {nextPokemon} →
+            {toTitleCase(nextPokemon)} →
           </a>
         )}
       </nav>
       <hr />
-      <header
-        style={{
-          placeSelf: 'center',
-          placeItems: 'center',
-          display: 'grid',
-          gap: '1em',
-          margin: '1em 0',
-          alignItems: 'center',
-          padding: '0 1em',
-        }}
-      >
-        <h1
-          style={{
-            margin: '0.25em 0',
-            textTransform: 'capitalize',
-          }}
-        >
-          {name}
-        </h1>
-        <ul
-          style={{
-            display: 'flex',
-            gap: '1em',
-            listStyle: 'none',
-            margin: 0,
-            padding: 0,
-            alignItems: 'center',
-          }}
-        >
+      <header className={styles.header}>
+        <h1 className={styles.h1}>{name}</h1>
+        <ul className={styles.types}>
           {types.map(([name, iconUrl]) => {
             return (
               <li key={name}>
@@ -234,71 +171,33 @@ export default function PokemonSpeciesPage({
           })}
         </ul>
       </header>
-      <main
-        style={{
-          placeSelf: 'center',
-          padding: '0 1em',
-        }}
-      >
+      <main className={styles.main}>
         <img
           src={image}
           alt={name}
-          style={{
-            maxHeight: '33vh',
-            placeSelf: 'center',
-          }}
+          className={styles.image}
         />
-        <h2
-          style={{
-            placeSelf: 'center',
-          }}
-        >
-          Evolution
-        </h2>
-        <ul
-          style={{
-            placeSelf: 'center',
-            flexWrap: 'wrap',
-            display: 'flex',
-            gap: '0.5em',
-            padding: 0,
-            margin: 0,
-          }}
-        >
+        <h2 className={styles.h2}>Evolution</h2>
+        <ul className={styles.evoluionChainList}>
           {renderEvolutionChain(evolutionChain.chain)}
         </ul>
       </main>
       <hr />
-      <nav
-        style={{
-          placeSelf: 'center',
-          margin: '2em 0',
-          flexWrap: 'wrap',
-          display: 'flex',
-          gap: '1em',
-          padding: '0 1em',
-        }}
-      >
+      <nav className={styles.breadcrumb}>
         {previousPokemon && (
           <a
             className="button"
-            style={{
-              textTransform: 'capitalize',
-            }}
             href={'/pokemon/' + previousPokemon}
           >
-            ← {previousPokemon}
+            ← {toTitleCase(previousPokemon)}
           </a>
         )}
         {nextPokemon && (
           <a
             className="button"
-            style={{
-              textTransform: 'capitalize',
-            }}
             href={'/pokemon/' + nextPokemon}
           >
-            {nextPokemon} →
+            {toTitleCase(nextPokemon)} →
           </a>
         )}
       </nav>

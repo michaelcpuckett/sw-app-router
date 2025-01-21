@@ -1,0 +1,77 @@
+.evolutionChainList {
+  place-self: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.5em;
+  padding: 0;
+  margin: 0;
+}
+
+.evolutionChainItem {
+  margin: 0.5em 0;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 1em;
+  padding: 0;
+}
+
+.evolutionChainSublist {
+  display: flex;
+  gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav {
+  place-self: center;
+  margin: 1em 0;
+  display: flex;
+  padding: 0 1em;
+}
+
+.breadcrumb {
+  place-self: center;
+  margin: 2em 0;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 1em;
+  padding: 0 1em;
+}
+
+.header {
+  place-self: center;
+  place-items: center;
+  display: grid;
+  gap: 1em;
+  margin: 1em 0;
+  align-items: center;
+  padding: 0 1em;
+}
+
+.h1 {
+  margin: 0.25em 0;
+}
+
+.types {
+  display: flex;
+  gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.main {
+  place-self: center;
+  padding: 0 1em;
+}
+
+.image {
+  max-height: 33vh;
+  place-self: center;
+}
+
+.h2 {
+  place-self: center;
+}

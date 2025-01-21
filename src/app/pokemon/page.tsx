@@ -1,6 +1,7 @@
 import { GetStaticProps, Metadata } from '@express-worker/router';
 import PokeAPI, { NamedAPIResourceList } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
+import { toTitleCase } from 'utils/toTitleCase';
 
 export const metadata: Metadata = {
   title: 'Pokemon',
@@ -61,13 +62,8 @@ export default function PokemonPage({
         <ul>
           {speciesList.results.map((species) => (
             <li key={species.name}>
-              <a
-                href={`/pokemon/${species.name}`}
-                style={{
-                  textTransform: 'capitalize',
-                }}
-              >
-                {species.name}
+              <a href={`/pokemon/${species.name}`}>
+                {toTitleCase(species.name)}
               </a>
             </li>
           ))}
