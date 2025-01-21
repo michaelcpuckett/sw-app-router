@@ -11,18 +11,29 @@
     "removeComments": true,
     "noLib": false,
     "jsx": "react-jsx",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "target": "ES2020",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "paths": {
-      "*": ["*", "./*/"]
+      "*": [
+        "../../src/*"
+      ]
     },
-    "types": ["../swarf-env.d.ts"]
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
-  "include": ["./**/*"]
+  "include": [
+    "./*"
+  ]
 }

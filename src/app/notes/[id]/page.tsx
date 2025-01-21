@@ -1,4 +1,3 @@
-import { GetStaticProps, Metadata } from '@express-worker/router';
 import MarkdownPreview from 'components/MarkdownPreview';
 import {
   FormEventHandler,
@@ -7,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { GetStaticProps, Metadata } from 'swarf';
 import { getNote, Note, setNote as setNoteDb } from 'utils/db';
 import styles from './page.module.css';
 

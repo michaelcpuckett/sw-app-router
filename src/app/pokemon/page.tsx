@@ -1,6 +1,6 @@
-import { GetStaticProps, Metadata } from '@express-worker/router';
 import PokeAPI, { NamedAPIResourceList } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
+import { GetStaticProps, Metadata } from 'swarf';
 import { toTitleCase } from 'utils/toTitleCase';
 
 export const metadata: Metadata = {

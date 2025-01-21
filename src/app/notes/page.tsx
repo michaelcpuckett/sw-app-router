@@ -1,7 +1,7 @@
-import { GetStaticProps, Metadata } from '@express-worker/router';
 import NoteRow from 'components/NoteRow';
 import { LexoRank } from 'lexorank';
 import { Fragment, useCallback, useEffect, useState } from 'react';
+import { GetStaticProps, Metadata } from 'swarf';
 import { getNotes, Note, setNotes as setNotesDb } from 'utils/db';
 import { v4 as uuid } from 'uuid';
 import styles from './page.module.css';

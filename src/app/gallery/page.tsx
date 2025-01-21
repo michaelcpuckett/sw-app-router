@@ -1,5 +1,5 @@
-import { GetStaticProps, Metadata } from '@express-worker/router';
 import { ChangeEventHandler, Fragment, useCallback, useState } from 'react';
+import { GetStaticProps, Metadata } from 'swarf';
 
 export const metadata: Metadata = {
   title: 'Image Gallery',

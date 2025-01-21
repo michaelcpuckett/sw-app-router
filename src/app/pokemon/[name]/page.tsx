@@ -1,6 +1,6 @@
-import { GetMetadata, GetStaticProps } from '@express-worker/router';
 import PokeAPI, { Chain, EvolutionChain } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
+import { GetMetadata, GetStaticProps } from 'swarf';
 import { toTitleCase } from 'utils/toTitleCase';
 import styles from './page.module.css';
 

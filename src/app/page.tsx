@@ -1,5 +1,5 @@
-import { GetStaticProps, Metadata } from '@express-worker/router';
 import { Fragment } from 'react';
+import { GetStaticProps, Metadata } from 'swarf';
 
 export const metadata: Metadata = {
   title: 'Home',
