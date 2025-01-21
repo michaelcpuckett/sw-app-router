@@ -61,7 +61,14 @@ export default function PokemonPage({
         <ul>
           {speciesList.results.map((species) => (
             <li key={species.name}>
-              <a href={`/pokemon/${species.name}`}>{species.name}</a>
+              <a
+                href={`/pokemon/${species.name}`}
+                style={{
+                  textTransform: 'capitalize',
+                }}
+              >
+                {species.name}
+              </a>
             </li>
           ))}
         </ul>

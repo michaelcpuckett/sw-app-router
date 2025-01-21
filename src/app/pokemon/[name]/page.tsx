@@ -1,14 +1,10 @@
 import { GetMetadata, GetStaticProps } from '@express-worker/router';
-import PokeAPI, {
-  Chain,
-  EvolutionChain,
-  PokemonType,
-} from 'pokedex-promise-v2';
+import PokeAPI, { Chain, EvolutionChain } from 'pokedex-promise-v2';
 import { Fragment } from 'react';
 
 interface PokemonPageProps {
   image: string;
-  types: PokemonType[];
+  types: Array<[string, string]>;
   name: string;
   evolutionChain: EvolutionChain;
   previousPokemon?: string;
@@ -20,7 +16,7 @@ export const getStaticProps: GetStaticProps = async function ({
 }) {
   // Data doesn't change. Check cache first.
   const pagePropsCache = await caches.open('page-props');
-  const cachedPokemonData = await pagePropsCache.match(name);
+  const cachedPokemonData = await pagePropsCache.match('/' + name);
 
   if (cachedPokemonData) {
     return {
@@ -44,8 +40,28 @@ export const getStaticProps: GetStaticProps = async function ({
     await pokemonImageCache.add(image);
   }
 
-  const types = pokemon.types;
   const number = pokemon.id;
+  const types = await Promise.all(
+    pokemon.types.map(async ({ type }) => {
+      const typeData = await pokeAPI.getTypeByName(type.name);
+      const iconUrl =
+        typeData.sprites['generation-viii'][
+          'brilliant-diamond-and-shining-pearl'
+        ].name_icon || '';
+
+      const typeUrlCache = await caches.open('type-icons');
+
+      if (!iconUrl) {
+        return [type.name, ''] as [string, string];
+      }
+
+      if (!(await typeUrlCache.match(iconUrl))) {
+        await typeUrlCache.put(iconUrl, await fetch(iconUrl));
+      }
+
+      return [type.name, iconUrl] as [string, string];
+    }),
+  );
 
   const previousPokemon = await pokeAPI
     .getPokemonByName(number - 1)
@@ -63,15 +79,7 @@ export const getStaticProps: GetStaticProps = async function ({
     evolutionChain,
   };
 
-  // Save to cache
-  await pagePropsCache.put(
-    name,
-    new Response(JSON.stringify(props), {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }),
-  );
+  await pagePropsCache.put('/' + name, new Response(JSON.stringify(props)));
 
   return {
     props,
@@ -95,20 +103,32 @@ export default function PokemonSpeciesPage({
       <li
         key={chain.species.name}
         style={{
-          margin: '1em 0',
+          margin: '0.5em 0',
           flexWrap: 'wrap',
           display: 'flex',
           gap: '1em',
+          padding: 0,
         }}
       >
         <a
           className="button"
+          style={{
+            textTransform: 'capitalize',
+          }}
           href={'/pokemon/' + chain.species.name}
         >
           {chain.species.name}
         </a>
         {chain.evolves_to.length > 0 && (
-          <ul>
+          <ul
+            style={{
+              display: 'flex',
+              gap: '1em',
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+            }}
+          >
             {chain.evolves_to.map((evolution) =>
               renderEvolutionChain(evolution),
             )}
@@ -120,56 +140,164 @@ export default function PokemonSpeciesPage({
 
   return (
     <Fragment>
-      <header>
-        <h1>{name}</h1>
-      </header>
       <nav
         style={{
+          placeSelf: 'center',
           margin: '1em 0',
-          flexWrap: 'wrap',
           display: 'flex',
-          gap: '1em',
+          padding: '0 1em',
         }}
       >
         <a
-          className="button"
           href="/pokemon"
+          className="button"
         >
           Back
         </a>
+      </nav>
+      <nav
+        style={{
+          placeSelf: 'center',
+          margin: '2em 0',
+          flexWrap: 'wrap',
+          display: 'flex',
+          gap: '1em',
+          padding: '0 1em',
+        }}
+      >
         {previousPokemon && (
           <a
             className="button"
+            style={{
+              textTransform: 'capitalize',
+            }}
             href={'/pokemon/' + previousPokemon}
           >
-            Previous - {previousPokemon}
+            ← {previousPokemon}
           </a>
         )}
         {nextPokemon && (
           <a
             className="button"
+            style={{
+              textTransform: 'capitalize',
+            }}
             href={'/pokemon/' + nextPokemon}
           >
-            Next - {nextPokemon}
+            {nextPokemon} →
           </a>
         )}
       </nav>
-      <br />
-      <main>
-        <h2>Image</h2>
+      <hr />
+      <header
+        style={{
+          placeSelf: 'center',
+          placeItems: 'center',
+          display: 'grid',
+          gap: '1em',
+          margin: '1em 0',
+          alignItems: 'center',
+          padding: '0 1em',
+        }}
+      >
+        <h1
+          style={{
+            margin: '0.25em 0',
+            textTransform: 'capitalize',
+          }}
+        >
+          {name}
+        </h1>
+        <ul
+          style={{
+            display: 'flex',
+            gap: '1em',
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            alignItems: 'center',
+          }}
+        >
+          {types.map(([name, iconUrl]) => {
+            return (
+              <li key={name}>
+                {iconUrl ? (
+                  <img
+                    src={iconUrl}
+                    alt={name}
+                  />
+                ) : (
+                  <span>{name}</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </header>
+      <main
+        style={{
+          placeSelf: 'center',
+          padding: '0 1em',
+        }}
+      >
         <img
           src={image}
           alt={name}
         />
-        <h2>Types</h2>
-        <ul>
-          {types.map(({ type }) => (
-            <li key={type.name}>{type.name}</li>
-          ))}
+        <h2
+          style={{
+            placeSelf: 'center',
+          }}
+        >
+          Evolution
+        </h2>
+        <ul
+          style={{
+            placeSelf: 'center',
+            flexWrap: 'wrap',
+            display: 'flex',
+            gap: '0.5em',
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          {renderEvolutionChain(evolutionChain.chain)}
         </ul>
-        <h2>Evolution</h2>
-        <ul>{renderEvolutionChain(evolutionChain.chain)}</ul>
       </main>
+      <hr />
+      <nav
+        style={{
+          placeSelf: 'center',
+          margin: '2em 0',
+          flexWrap: 'wrap',
+          display: 'flex',
+          gap: '1em',
+          padding: '0 1em',
+        }}
+      >
+        {previousPokemon && (
+          <a
+            className="button"
+            style={{
+              textTransform: 'capitalize',
+            }}
+            href={'/pokemon/' + previousPokemon}
+          >
+            ← {previousPokemon}
+          </a>
+        )}
+        {nextPokemon && (
+          <a
+            className="button"
+            style={{
+              textTransform: 'capitalize',
+            }}
+            href={'/pokemon/' + nextPokemon}
+          >
+            {nextPokemon} →
+          </a>
+        )}
+      </nav>
     </Fragment>
   );
 }
