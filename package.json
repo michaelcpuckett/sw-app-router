@@ -7,7 +7,7 @@
     "build": "swarf build",
     "dev": "swarf dev",
     "clean": "swarf clean",
-    "serve": "http-server -p 8080"
+    "serve": "swarf serve"
   },
   "author": "Michael Puckett <michael@puckett.contact>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.1.1",
-    "swarf": "^0.0.8",
+    "swarf": "^0.0.10",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
