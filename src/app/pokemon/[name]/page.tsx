@@ -17,8 +17,8 @@ export const getStaticProps: GetStaticProps = async function ({
   params: { name },
 }) {
   // Data doesn't change. Check cache first.
-  const pagePropsCache = await caches.open('page-props');
-  const cachedPokemonData = await pagePropsCache.match('/' + name);
+  const pagePropsCache = await caches.open('pokemon-page-props');
+  const cachedPokemonData = await pagePropsCache.match(name);
 
   if (cachedPokemonData) {
     return {
@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async function ({
     evolutionChain,
   };
 
-  await pagePropsCache.put('/' + name, new Response(JSON.stringify(props)));
+  await pagePropsCache.put(name, new Response(JSON.stringify(props)));
 
   return {
     props,

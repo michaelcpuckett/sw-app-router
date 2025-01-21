@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export const getStaticProps: GetStaticProps = async function () {
   // Data doesn't change. Check cache first.
-  const pagePropsCache = await caches.open('page-props');
+  const pagePropsCache = await caches.open('pokemon-page-props');
   const cachedPokemonData = await pagePropsCache.match('/');
 
   if (cachedPokemonData) {
