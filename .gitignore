@@ -6,4 +6,4 @@ public/window.js
 public/install.js
 public/service-worker.css
 public/service-worker.js
-.express-worker-router/
+.ewr/
