@@ -1,9 +1,4 @@
 node_modules/
 .firebase/
-public/cache.json
-public/window.css
-public/window.js
-public/install.js
-public/service-worker.css
-public/service-worker.js
 .ewr/
+public/
