@@ -12,7 +12,7 @@
   "author": "Michael Puckett <michael@puckett.contact>",
   "license": "MIT",
   "dependencies": {
-    "@express-worker/router": "^1.6.5",
+    "@express-worker/router": "^1.6.9",
     "lexorank": "^1.0.5",
     "marked": "^15.0.6",
     "pokedex-promise-v2": "^4.2.1",
