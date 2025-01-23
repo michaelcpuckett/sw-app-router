@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <Fragment>
       <header>
-        <h1>Service Worker with App Router Starter</h1>
+        <h1>Swarf Starter</h1>
         <a
           className="button"
           href="https://github.com/michaelcpuckett/swarf-starter"
@@ -27,7 +27,7 @@ export default function HomePage() {
         <h2>Overview</h2>
         <p>
           This is a starter project for building a multi-page web app inside a
-          service worker.
+          service worker using Swarf.
         </p>
         <h2>Demos</h2>
         <ul>
